@@ -1,4 +1,4 @@
-// Kimlik Doğrulama Elemanları
+// KİMLİK DOĞRULAMA
 const authBox = document.getElementById('authBox');
 const appBox = document.getElementById('appBox');
 const authTitle = document.getElementById('authTitle');
@@ -7,14 +7,51 @@ const passwordInput = document.getElementById('passwordInput');
 const mainAuthBtn = document.getElementById('mainAuthBtn');
 const toggleAuth = document.getElementById('toggleAuth');
 
-// Uygulama Elemanları
+// UYGULAMA ELEMANLARI
 const queryInput = document.getElementById('queryInput');
 const searchBtn = document.getElementById('searchBtn');
 const resultCard = document.getElementById('resultCard');
 
 let isLoginMode = true;
 
-// Mod Değiştirme (Giriş / Kayıt)
+// CANLI AKAN MATRİX YAĞMURU MOTORU
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const katakana = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890XYZ&*$#@";
+const alphabet = katakana.split("");
+
+const fontSize = 14;
+let columns = canvas.width / fontSize;
+let rainDrops = Array(Math.floor(columns)).fill(1);
+
+function drawMatrix() {
+    ctx.fillStyle = 'rgba(3, 6, 15, 0.12)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#00ff64';
+    ctx.font = fontSize + 'px monospace';
+
+    for (let i = 0; i < rainDrops.length; i++) {
+        const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+        if (rainDrops[i] * fontSize > canvas.height && Math.random() * 0.975 > 0.95) {
+            rainDrops[i] = 0;
+        }
+        rainDrops[i]++;
+    }
+}
+setInterval(drawMatrix, 33);
+
+// GİRİŞ / KAYIT GEÇİŞİ
 toggleAuth.addEventListener('click', () => {
     isLoginMode = !isLoginMode;
     authTitle.textContent = isLoginMode ? 'Giriş Yap' : 'Kayıt Ol';
@@ -22,7 +59,7 @@ toggleAuth.addEventListener('click', () => {
     toggleAuth.textContent = isLoginMode ? "Hesabın yok mu? Kayıt Ol" : "Zaten hesabın var mı? Giriş Yap";
 });
 
-// Giriş ve Kayıt Mekanizması (LocalStorage)
+// LOCALSTORAGE VERİTABANI KONTROLÜ
 mainAuthBtn.addEventListener('click', () => {
     const email = emailInput.value.trim();
     const pass = passwordInput.value.trim();
@@ -54,13 +91,13 @@ mainAuthBtn.addEventListener('click', () => {
     }
 });
 
-// Hazır Kapsüllere Tıklama Fonksiyonu
+// KAPSÜL BUTONLAR
 function useTag(text) {
     queryInput.value = text;
     askCodeBuddy();
 }
 
-// Akıllı Yapay Zeka Sorgusu
+// AKILLI SORGULAMA MOTORU
 async function askCodeBuddy() {
     const promptText = queryInput.value.trim();
     if(!promptText) return;
@@ -76,10 +113,10 @@ async function askCodeBuddy() {
         if(parsedData && parsedData.reply) {
             resultCard.innerHTML = parsedData.reply.replace(/\n/g, '<br>');
         } else {
-            resultCard.innerHTML = "🤖 Ufak bir bağlantı hatası oluştu ama hemen tekrar dene aşkım!";
+            resultCard.innerHTML = "🤖 Ufak bir bağlantı hatası oluştu, lütfen tekrar dene aşkım!";
         }
     } catch (error) {
-        resultCard.innerHTML = "🤖 Sunucu şu an yoğun, lütfen tekrar sorgula canım!";
+        resultCard.innerHTML = "🤖 Sunucu yoğun, lütfen tekrar sorgula canım!";
     }
 }
 
