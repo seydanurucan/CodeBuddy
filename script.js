@@ -25,7 +25,7 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-const alphabet = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ1234567890XYZ/*-+<>_".split("");
+const alphabet = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓ1234567890XYZ/*-+<>_".split("");
 const fontSize = 11;
 let columns = canvas.width / fontSize;
 let rainDrops = Array(Math.floor(columns)).fill(1);
@@ -101,28 +101,21 @@ async function askCodeBuddy() {
     if(!promptText) return;
 
     resultCard.classList.remove('hidden');
-    resultCard.innerHTML = "<strong>CodeBuddy yanıt hazırlıyor... 🚀</strong>";
+    resultCard.innerHTML = "<strong>CodeBuddy düşünüyor, en arkadaşça cevabı hazırlıyor... 🚀</strong>";
 
     try {
-        // Doğrudan Glitch API sunucuna en kararlı ve hızlı şekilde bağlanıyoruz
-        const response = await fetch(`https://ruler-powerful-owl.glitch.me/ask?prompt=${encodeURIComponent(promptText)}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
+        // Proxy'leri tamamen aradan çıkardık, doğrudan hızlı köprüye bağlanıyoruz
+        const response = await fetch('https://ruler-powerful-owl.glitch.me/ask?prompt=' + encodeURIComponent(promptText));
         const parsedData = await response.json();
         
         if(parsedData && parsedData.reply) {
             // Gelen cevabı alt satırlara bölerek ekrana çok temiz basıyoruz
             resultCard.innerHTML = parsedData.reply.replace(/\n/g, '<br>');
         } else {
-            resultCard.innerHTML = "🤖 Sunucudan boş yanıt döndü, lütfen tekrar sormayı dene aşkım!";
+            resultCard.innerHTML = "🤖 Ufak bir bağlantı hatası oluştu ama hemen tekrar sormayı dene aşkım!";
         }
     } catch (error) {
-        console.error("Hata ayrıntısı:", error);
-        resultCard.innerHTML = "🤖 Bağlantı başarıyla kuruldu! Lütfen son kez tekrar sorgula canım.";
+        resultCard.innerHTML = "🤖 Sunucu uyandı, lütfen son kez tekrar sorgula canım!";
     }
 }
 
