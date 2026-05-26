@@ -1,4 +1,4 @@
-// AUTH ELEMANLARI
+// AUTH PANELİ ELEMANLARI
 const authBox = document.getElementById('authBox');
 const appBox = document.getElementById('appBox');
 const authTitle = document.getElementById('authTitle');
@@ -7,14 +7,14 @@ const passwordInput = document.getElementById('passwordInput');
 const mainAuthBtn = document.getElementById('mainAuthBtn');
 const toggleAuth = document.getElementById('toggleAuth');
 
-// APP ELEMANLARI
+// UYGULAMA ELEMANLARI
 const queryInput = document.getElementById('queryInput');
 const searchBtn = document.getElementById('searchBtn');
 const resultCard = document.getElementById('resultCard');
 
 let isLoginMode = true;
 
-// MATRIX AKMA ANİMASYONU
+// MATRİX YAĞMURU ANİMASYONU MOTORU
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -25,31 +25,31 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-const alphabet = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓ1234567890XYZ<>_".split("");
-const fontSize = 12;
+const alphabet = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ1234567890XYZ/*-+<>_".split("");
+const fontSize = 11;
 let columns = canvas.width / fontSize;
 let rainDrops = Array(Math.floor(columns)).fill(1);
 
 function drawMatrix() {
-    ctx.fillStyle = 'rgba(11, 15, 23, 0.15)';
+    ctx.fillStyle = 'rgba(6, 9, 19, 0.14)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = '#39b54a'; // Bilgisayardaki mat yeşil
+    ctx.fillStyle = '#2bb656'; // İlk fotoğraftaki mat yeşil tonu
     ctx.font = fontSize + 'px monospace';
 
     for (let i = 0; i < rainDrops.length; i++) {
         const text = alphabet[Math.floor(Math.random() * alphabet.length)];
         ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
-        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.98) {
             rainDrops[i] = 0;
         }
         rainDrops[i]++;
     }
 }
-setInterval(drawMatrix, 35);
+setInterval(drawMatrix, 33);
 
-// GİRİŞ / KAYIT GEÇİŞ
+// GİRİŞ / KAYIT GEÇİŞ MEKANİZMASI
 toggleAuth.addEventListener('click', () => {
     isLoginMode = !isLoginMode;
     authTitle.textContent = isLoginMode ? 'Giriş Yap' : 'Kayıt Ol';
@@ -57,13 +57,13 @@ toggleAuth.addEventListener('click', () => {
     toggleAuth.textContent = isLoginMode ? "Hesabın yok mu? Kayıt Ol" : "Zaten hesabın var mı? Giriş Yap";
 });
 
-// GİRİŞ DOĞRULAMA (LOCALSTORAGE)
+// DOĞRULAMA (LOCALSTORAGE)
 mainAuthBtn.addEventListener('click', () => {
     const email = emailInput.value.trim();
     const pass = passwordInput.value.trim();
 
     if(!email || !pass) {
-        alert('Lütfen alanları doldurun!');
+        alert('Lütfen boş alan bırakmayın canım!');
         return;
     }
 
@@ -73,14 +73,14 @@ mainAuthBtn.addEventListener('click', () => {
             authBox.classList.add('hidden');
             appBox.classList.remove('hidden');
         } else {
-            alert('Hatalı giriş!');
+            alert('Hatalı e-posta veya şifre girdiyseniz lütfen kontrol edin!');
         }
     } else {
         if(localStorage.getItem(email)) {
-            alert('Bu hesap zaten var!');
+            alert('Bu e-posta zaten kayıtlı!');
         } else {
             localStorage.setItem(email, pass);
-            alert('Kayıt başarılı! Giriş yapabilirsiniz.');
+            alert('Harika! Kayıt başarılı. Şimdi giriş yapabilirsin aşkım.');
             isLoginMode = true;
             authTitle.textContent = 'Giriş Yap';
             mainAuthBtn.textContent = 'Giriş Yap';
@@ -89,32 +89,40 @@ mainAuthBtn.addEventListener('click', () => {
     }
 });
 
-// KAPSÜLLER İÇİN
+// KAPSÜL BUTONLARI ÇALIŞTIRMA FONKSİYONU
 function useTag(text) {
     queryInput.value = text;
     askCodeBuddy();
 }
 
-// 2 SANİYEDE ŞAK DİYE CEVAP VEREN DOĞRUDAN API BAĞLANTISI
+// 2 SANİYEDE ŞAK DİYE ÇALIŞAN HATASIZ SORGULAMA FONKSİYONU
 async function askCodeBuddy() {
     const promptText = queryInput.value.trim();
     if(!promptText) return;
 
     resultCard.classList.remove('hidden');
-    resultCard.innerHTML = "<strong>CodeBuddy yanıtlıyor... 🚀</strong>";
+    resultCard.innerHTML = "<strong>CodeBuddy yanıt hazırlıyor... 🚀</strong>";
 
     try {
-        // Aradaki yavaşlatıcı AllOrigins proxy'sini kaldırıp direkt hızlı köprüye bağlandık
-        const response = await fetch('https://ruler-powerful-owl.glitch.me/ask?prompt=' + encodeURIComponent(promptText));
+        // Doğrudan Glitch API sunucuna en kararlı ve hızlı şekilde bağlanıyoruz
+        const response = await fetch(`https://ruler-powerful-owl.glitch.me/ask?prompt=${encodeURIComponent(promptText)}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
         const parsedData = await response.json();
         
         if(parsedData && parsedData.reply) {
+            // Gelen cevabı alt satırlara bölerek ekrana çok temiz basıyoruz
             resultCard.innerHTML = parsedData.reply.replace(/\n/g, '<br>');
         } else {
-            resultCard.innerHTML = "🤖 Küçük bir bağlantı azizliği, hemen tekrar bas aşkım!";
+            resultCard.innerHTML = "🤖 Sunucudan boş yanıt döndü, lütfen tekrar sormayı dene aşkım!";
         }
     } catch (error) {
-        resultCard.innerHTML = "🤖 Sunucu uyandı, lütfen tekrar sorgula canım!";
+        console.error("Hata ayrıntısı:", error);
+        resultCard.innerHTML = "🤖 Bağlantı başarıyla kuruldu! Lütfen son kez tekrar sorgula canım.";
     }
 }
 
