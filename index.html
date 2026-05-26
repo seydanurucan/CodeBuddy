@@ -2,12 +2,14 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy - AI Kod Asistanı</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
+    <canvas id="matrixCanvas"></canvas>
 
     <div id="authBox" class="auth-container">
         <h2 id="authTitle">Giriş Yap</h2>
@@ -34,10 +36,10 @@
         </div>
 
         <div class="search-box-wrapper">
-            <input type="text" id="queryInput" class="search-input" placeholder="🔍 Bir kod terimi yaz... (örn: C# döngüler)">
+            <input type="text" id="queryInput" class="search-input" placeholder="Bir kod terimi yaz... (örn: C# döngüler)">
         </div>
         
-        <button id="searchBtn" class="query-btn">✨ SORGULA</button>
+        <button id="searchBtn" class="query-btn">🔥 SORGULA</button>
 
         <div class="bot-icon">🤖</div>
         
