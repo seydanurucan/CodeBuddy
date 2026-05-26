@@ -1,105 +1,18 @@
+/* Temel Sıfırlamalar */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-    background-color: #060913;
-    color: #ffffff;
+    background-color: #050605;
+    color: #EBF5EE;
+    overflow: hidden;
+    height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    padding: 20px 16px;
-}
-
-/* O fotoğraftaki gibi asil ve göz yormayan hafif akan Matrix arka planı */
-#matrixCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.18; /* Göz yormayan, asil bir opaklık */
-}
-
-/* Giriş Konteyneri (Mobil Ölçülerde) */
-.auth-container {
-    background: rgba(13, 20, 35, 0.85);
-    padding: 30px 20px;
-    border-radius: 16px;
-    border: 1px solid #2bb656; /* Bilgisayardaki o asil mat yeşil */
-    width: 100%;
-    max-width: 325px;
-    text-align: center;
-    margin-top: 15vh;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    backdrop-filter: blur(8px);
-}
-
-.auth-container h2 {
-    color: #2bb656;
-    margin-bottom: 20px;
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.input-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 6px;
-    color: #2bb656;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(43, 182, 86, 0.4);
-    background: #060913;
-    color: white;
-    font-size: 14px;
-    outline: none;
-}
-
-.auth-btn {
-    width: 100%;
-    padding: 12px;
-    background: #2bb656;
-    color: #060913;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 15px;
-}
-
-.switch-mode {
-    color: #94a3b8;
-    font-size: 13px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* Ana Uygulama Konteyneri (Tam O Fotoğraftaki Kusursuz Simetri) */
-.app-container {
-    width: 100%;
-    max-width: 340px; /* Telefon ekranına tam sığacak ölçü */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
@@ -107,135 +20,416 @@ body {
     display: none !important;
 }
 
-/* Üst Başlık Alanı */
-.header-area {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 15px;
-    margin-bottom: 25px;
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.12;
+    filter: blur(0.5px);
 }
 
-.logo-box {
-    background: #2bb656;
-    color: #060913;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.title-box {
-    text-align: left;
-}
-
-.title-box h1 {
-    font-size: 24px;
-    color: white;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.title-box p {
-    color: #2bb656;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-/* Tam O Fotoğraftaki Şık ve Mat Giriş Alanı */
-.search-box-wrapper {
+/* --- GİRİŞ EKRANI --- */
+.auth-container {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    margin-bottom: 15px;
+    max-width: 400px;
+    padding: 20px;
 }
 
-.search-input {
-    width: 100%;
-    padding: 15px 20px;
-    background: #111726;
-    border: 1.5px solid #2bb656;
-    border-radius: 25px;
-    color: white;
-    font-size: 15px;
+.auth-card {
+    background: rgba(15, 18, 15, 0.65);
+    border: 1.5px solid rgba(16, 255, 112, 0.25);
+    border-radius: 24px;
+    padding: 45px 35px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+}
+
+.brand-title {
+    color: #10FF70;
     text-align: center;
+    font-size: 2.3rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(16, 255, 112, 0.35);
+    margin-bottom: 6px;
+}
+
+.brand-subtitle {
+    color: #606662;
+    text-align: center;
+    font-size: 0.8rem;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+}
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    color: #757C78;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(20, 24, 21, 0.5);
+    border: 1.5px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: #FFF;
     outline: none;
 }
 
-/* Tam O Fotoğraftaki Düzgün ve Asil Yeşil Buton */
-.query-btn {
+.cyber-btn {
     width: 100%;
-    padding: 15px;
-    background: #2bb656;
-    color: #060913;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
+    background: rgba(16, 255, 112, 0.06);
+    border: 1.5px solid #10FF70;
+    color: #10FF70;
+    padding: 16px;
+    font-weight: 700;
+    border-radius: 16px;
     cursor: pointer;
-    margin-bottom: 30px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2.5px;
+    transition: all 0.3s;
 }
 
-.bot-icon {
-    font-size: 38px;
-    margin-bottom: 10px;
-    color: #ffffff;
+.cyber-btn:hover {
+    background: #10FF70;
+    color: #080908;
+    box-shadow: 0 0 25px rgba(16, 255, 112, 0.6);
 }
 
-.info-text h3 {
-    font-size: 18px;
-    color: #ffffff;
-    margin-bottom: 6px;
-    font-weight: 600;
+.auth-footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #505652;
 }
 
-.info-text p {
-    color: #94a3b8;
+.cyber-link {
+    color: #10FF70;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+/* --- YENİ ANA PANEL TASARIMI (GÖRSELDEKİ GİBİ) --- */
+.app-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 440px; /* Görseldeki dikey mobil/kart formu */
+    height: 90vh;
+    background: rgba(10, 12, 10, 0.55); /* Arkadaki matris tül gibi süzülecek */
+    border: 1.5px solid rgba(16, 255, 112, 0.2);
+    border-radius: 28px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+/* Header Kısmı */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 25px;
-    font-size: 13px;
-    line-height: 1.5;
-    padding: 0 5px;
 }
 
-/* Düzenli ve Hizalı Kapsül Kelimeler */
-.tags-container {
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.app-icon {
+    background: rgba(16, 255, 112, 0.1);
+    border: 1px solid rgba(16, 255, 112, 0.3);
+    color: #10FF70;
+    padding: 10px;
+    border-radius: 14px;
+    font-weight: bold;
+}
+
+.app-info h2 {
+    font-size: 1.3rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.app-info p {
+    font-size: 0.8rem;
+    color: #606662;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #10FF70;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10FF70;
+}
+
+/* Arama Çubuğu */
+.search-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.search-wrapper {
+    background: rgba(20, 24, 21, 0.7);
+    border: 1.5px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-wrapper input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+/* Görseldeki O Muazzam "SORGULA" Butonu */
+.action-btn-main {
+    background: #10FF70;
+    color: #050605;
+    border: none;
+    border-radius: 18px;
+    padding: 16px;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(16, 255, 112, 0.4);
+    transition: all 0.3s ease;
+}
+
+.action-btn-main:hover {
+    box-shadow: 0 6px 25px rgba(16, 255, 112, 0.6);
+    transform: translateY(-1px);
+}
+
+/* Tanıtım Alanı (Robotlu Kısım) */
+.intro-section {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.robot-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+.intro-section h3 {
+    font-size: 1.1rem;
+    color: #a0aaa4;
+    margin-bottom: 8px;
+}
+
+.intro-section p {
+    font-size: 0.85rem;
+    color: #555e58;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+/* Görseldeki Yuvarlak Hatlı Küçük Butonlar (Chips) */
+.terms-cloud {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 25px;
-    width: 100%;
 }
 
-.tag {
-    background: rgba(43, 182, 86, 0.06);
-    border: 1px solid rgba(43, 182, 86, 0.4);
-    padding: 6px 14px;
-    border-radius: 15px;
-    color: #2bb656;
-    font-size: 12px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.tag:hover {
-    background: #2bb656;
-    color: #060913;
-}
-
-/* Şık ve Hizalı Cevap Alanı Kartı */
-.response-card {
-    background: #111726;
-    border: 1.5px solid #2bb656;
-    padding: 18px;
+.term-chip {
+    background: rgba(16, 255, 112, 0.03);
+    border: 1px solid rgba(16, 255, 112, 0.2);
+    color: #10FF70;
+    padding: 8px 16px;
     border-radius: 14px;
-    text-align: left;
-    line-height: 1.6;
-    font-size: 14px;
-    width: 100%;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
 }
-    
 
+.term-chip:hover {
+    background: rgba(16, 255, 112, 0.1);
+    border-color: #10FF70;
+    box-shadow: 0 0 10px rgba(16, 255, 112, 0.2);
+}
+
+/* --- SONUÇ VE DETAYLAR --- */
+.result-section {
+    background: rgba(20, 24, 21, 0.4);
+    border: 1px solid rgba(16, 255, 112, 0.15);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.result-header h3 {
+    color: #10FF70;
+}
+
+.fav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.term-desc {
+    color: #b5c2ba;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* İstediğin O Çılgın Uzun Anlatım Kutusu */
+.term-deep-desc {
+    background: rgba(16, 255, 112, 0.04);
+    padding: 16px;
+    border-left: 3px solid #10FF70;
+    border-radius: 4px 14px 14px 4px;
+    color: #d0ded5;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    white-space: pre-line; /* Satır boşluklarını korur */
+}
+
+.result-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cyber-btn-small {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #10FF70;
+    color: #10FF70;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cyber-btn-small:hover {
+    background: rgba(16, 255, 112, 0.1);
+}
+
+/* Kod ve Konsol Pencereleri */
+.window-box {
+    background: #040504;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.window-header {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    color: #757C78;
+    display: flex;
+    justify-content: space-between;
+}
+
+.output-border {
+    border-color: rgba(16, 255, 112, 0.15);
+}
+
+pre {
+    padding: 12px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    color: #10FF70;
+    font-size: 0.85rem;
+}
+
+/* Quiz Alanı */
+.quiz-box {
+    background: rgba(16, 255, 112, 0.01);
+    border: 1px solid rgba(16, 255, 112, 0.15);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.quiz-opt-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.quiz-opt-btn:hover {
+    border-color: #10FF70;
+}
+
+#quizResult {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Scrollbar Özelleştirme (Premium İnce Yapı) */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(16, 255, 112, 0.2);
+    border-radius: 10px;
+}
