@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #03060f;
+    background-color: #0b0f17;
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -14,10 +14,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    padding: 20px 15px;
+    padding: 15px;
 }
 
-/* Gerçek Akan Matrix Kodları İçin Tuval (Canvas) Arka Planı */
+/* Arkadaki Canlı Akan Matrix Kodları */
 #matrixCanvas {
     position: fixed;
     top: 0;
@@ -25,84 +25,76 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.35;
+    opacity: 0.22; /* Göz yormayan asil opaklık */
 }
 
-/* Giriş Konteyneri (Mobil Boyut) */
+/* Giriş Kutusu (Milimetrik Hizalı ve Kibar) */
 .auth-container {
-    background: rgba(8, 14, 28, 0.85);
-    padding: 30px 20px;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid #00ff64;
+    background: rgba(15, 23, 42, 0.85);
+    padding: 25px 20px;
+    border-radius: 12px;
+    border: 1px solid #39b54a; /* Bilgisayardaki o asil yeşil */
     width: 100%;
-    max-width: 340px;
+    max-width: 320px;
     text-align: center;
-    margin-top: 15vh;
+    margin-top: 20vh;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .auth-container h2 {
-    color: #00ff64;
-    margin-bottom: 20px;
-    font-size: 22px;
-    text-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
+    color: #39b54a;
+    margin-bottom: 18px;
+    font-size: 20px;
 }
 
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-align: left;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 6px;
-    color: #00ff64;
-    font-size: 13px;
+    margin-bottom: 5px;
+    color: #39b54a;
+    font-size: 12px;
     font-weight: bold;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 255, 100, 0.5);
-    background: rgba(3, 6, 15, 0.9);
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(57, 181, 74, 0.4);
+    background: #0b0f17;
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     outline: none;
-}
-
-.input-group input:focus {
-    border-color: #00ff64;
-    box-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
 }
 
 .auth-btn {
     width: 100%;
-    padding: 12px;
-    background: #00ff64;
-    color: #03060f;
+    padding: 10px;
+    background: #39b54a;
+    color: #0b0f17;
     border: none;
-    border-radius: 8px;
-    font-size: 15px;
+    border-radius: 6px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(0, 255, 100, 0.3);
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .switch-mode {
-    color: #a0aec0;
-    font-size: 13px;
+    color: #94a3b8;
+    font-size: 12px;
     cursor: pointer;
     text-decoration: underline;
 }
 
-/* Ana Uygulama Alanı (Tam O Fotoğraftaki Gibi) */
+/* Ana Uygulama Kutusu (Tam Bilgisayar Fotoğrafındaki Ölçülerde) */
 .app-container {
     width: 100%;
-    max-width: 360px;
+    max-width: 330px; /* Biraz daha küçülttüm, ekrana tam sığacak */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -119,17 +111,16 @@ body {
     justify-content: center;
     gap: 10px;
     margin-top: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .logo-box {
-    background: #00ff64;
-    color: #03060f;
-    padding: 8px 12px;
+    background: #39b54a;
+    color: #0b0f17;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    box-shadow: 0 0 15px rgba(0, 255, 100, 0.5);
 }
 
 .title-box {
@@ -137,107 +128,102 @@ body {
 }
 
 .title-box h1 {
-    font-size: 24px;
+    font-size: 22px;
     color: white;
     font-weight: bold;
-    line-height: 1.1;
 }
 
 .title-box p {
-    color: #00ff64;
-    font-size: 12px;
-    text-shadow: 0 0 5px rgba(0, 255, 100, 0.3);
+    color: #39b54a;
+    font-size: 11px;
 }
 
-/* Küçük, Kibar Arama Girişi */
+/* İdeal Boyuttaki Arama Çubuğu */
 .search-box-wrapper {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .search-input {
     width: 100%;
-    padding: 14px 18px;
-    background: rgba(8, 14, 28, 0.9);
-    border: 1.5px solid #00ff64;
-    border-radius: 25px;
+    padding: 12px 16px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1.5px solid #39b54a;
+    border-radius: 20px;
     color: white;
-    font-size: 15px;
-    box-shadow: 0 0 12px rgba(0, 255, 100, 0.15);
+    font-size: 14px;
     text-align: center;
     outline: none;
 }
 
-/* Işıl Işıl Parlayan Kibar Buton */
+/* Bilgisayar Ekranındaki O Şık Mat Yeşil Buton */
 .query-btn {
     width: 100%;
-    padding: 14px;
-    background: #00ff64;
-    color: #03060f;
+    padding: 12px;
+    background: #39b54a;
+    color: #0b0f17;
     border: none;
-    border-radius: 25px;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 15px;
     font-weight: bold;
-    letter-spacing: 2px;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(0, 255, 100, 0.5);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .bot-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 0 8px rgba(0, 255, 100, 0.4));
+    font-size: 35px;
+    margin-bottom: 8px;
+    color: #a8f3b4;
 }
 
 .info-text h3 {
-    font-size: 18px;
+    font-size: 16px;
     color: #ffffff;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .info-text p {
-    color: #a0aec0;
-    margin-bottom: 25px;
-    font-size: 13px;
-    padding: 0 10px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    font-size: 12px;
 }
 
-/* Minik Kapsül Kelimeler */
+/* Kapsül Hazır Kelimeler */
 .tags-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 25px;
+    gap: 6px;
+    margin-bottom: 20px;
     width: 100%;
 }
 
 .tag {
-    background: rgba(0, 255, 100, 0.08);
-    border: 1px solid rgba(0, 255, 100, 0.4);
-    padding: 6px 14px;
-    border-radius: 15px;
-    color: #00ff64;
-    font-size: 12px;
+    background: rgba(57, 181, 74, 0.08);
+    border: 1px solid rgba(57, 181, 74, 0.4);
+    padding: 5px 12px;
+    border-radius: 12px;
+    color: #39b54a;
+    font-size: 11px;
     cursor: pointer;
 }
 
 .tag:hover {
-    background: #00ff64;
-    color: #03060f;
-    box-shadow: 0 0 12px #00ff64;
+    background: #39b54a;
+    color: #0b0f17;
 }
 
-/* Kibar Cevap Kartı */
+/* Cevap Alanı */
 .response-card {
-    background: rgba(8, 14, 28, 0.95);
-    border: 1px solid #00ff64;
-    padding: 18px;
-    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid #39b54a;
+    padding: 15px;
+    border-radius: 10px;
     text-align: left;
-    line-height: 1.6;
-    font-size: 14px;
-    box-shadow: 0 0 15px rgba(0, 255, 100, 0.2);
+    line-height: 1.5;
+    font-size: 13px;
     width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
 }
