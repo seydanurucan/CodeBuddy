@@ -2,67 +2,105 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CodeBuddy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeBuddy - Cyber Assistant</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
     <canvas id="matrixCanvas"></canvas>
 
-    <div id="authBox" class="auth-container">
-        <h2 id="authTitle">Giriş Yap</h2>
-        <div class="input-group">
-            <label>E-posta Adresi</label>
-            <input type="email" id="emailInput" placeholder="ornek@mail.com">
-        </div>
-        <div class="input-group">
-            <label>Şifre</label>
-            <input type="password" id="passwordInput" placeholder="••••••••">
-        </div>
-        <button id="mainAuthBtn" class="auth-btn">Giriş Yap</button>
-        <p id="toggleAuth" class="switch-mode">Hesabın yok mu? Kayıt Ol</p>
-    </div>
-
-    <div id="appBox" class="app-container hidden">
-        
-        <div class="header-area">
-            <div class="logo-box">&lt;/&gt;</div>
-            <div class="title-box">
-                <h1>CodeBuddy</h1>
-                <p>AI destekli kod asistanı</p>
+    <div class="auth-container" id="authScreen">
+        <div class="auth-card">
+            <h1 class="brand-title">CODEBUDDY</h1>
+            <p class="brand-subtitle">Siber Yazılım Asistanı</p>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Kullanıcı Adı</label>
+                    <input type="text" id="username" placeholder="Siber kimliğinizi giriniz..." required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Şifre</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="cyber-btn">Sisteme Giriş Yap</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Hesabın yok mu? <a href="#" class="cyber-link">Kayıt Ol</a></p>
             </div>
         </div>
-
-        <div class="search-box-wrapper">
-            <input type="text" id="queryInput" class="search-input" placeholder="Bir kod terimi yaz... (örn: C# döngüler)">
-        </div>
-        
-        <button id="searchBtn" class="query-btn">SORGULA</button>
-
-        <div class="bot-icon">🤖</div>
-        
-        <div class="info-text">
-            <h3>Ne öğrenmek istiyorsun?</h3>
-            <p>Bir kod terimi veya kavram yaz, sana arkadaşın gibi detaylıca açıklayayım.</p>
-        </div>
-
-        <div class="tags-container">
-            <div class="tag" onclick="useTag('C# döngüler')">C# döngüler</div>
-            <div class="tag" onclick="useTag('HTML div')">HTML div</div>
-            <div class="tag" onclick="useTag('CSS flexbox')">CSS flexbox</div>
-            <div class="tag" onclick="useTag('Python Liste')">Python Liste</div>
-            <div class="tag" onclick="useTag('JavaScript async')">JavaScript async</div>
-            <div class="tag" onclick="useTag('SQL JOIN')">SQL JOIN</div>
-            <div class="tag" onclick="useTag('React hooks')">React hooks</div>
-            <div class="tag" onclick="useTag('Git commit')">Git commit</div>
-        </div>
-
-        <div id="resultCard" class="response-card hidden"></div>
-
     </div>
 
+    <div class="app-container hidden" id="dashboardScreen">
+        <header class="app-header">
+            <div class="header-left">
+                <div class="app-icon">&lt;/&gt;</div>
+                <div class="app-info">
+                    <h2>CodeBuddy</h2>
+                    <p>AI destekli kod asistanı</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="status-icon">🔖</span>
+                <span class="status-dot"></span>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Bir kod terimi yaz... (örn: C#, API, OOP)">
+            </div>
+            <button class="action-btn-main" id="searchBtn">⚡ SORGULA</button>
+        </div>
+
+        <div class="intro-section" id="introSection">
+            <div class="robot-icon">🤖</div>
+            <h3>Ne öğrenmek istiyorsun?</h3>
+            <p>Bir kod terimi veya kavram yaz, sana arkadaşın gibi açıklayayım.</p>
+            
+            <div class="terms-cloud" id="termsGrid">
+                </div>
+        </div>
+
+        <div class="result-section hidden" id="termDetailCard">
+            <div class="result-header">
+                <h3 id="termTitle">Terim Başlığı</h3>
+                <button class="fav-btn" id="addFavBtn">⭐ Favori</button>
+            </div>
+            
+            <p class="term-desc" id="termDesc">Kısa Tanım...</p>
+            
+            <div class="term-deep-desc hidden" id="termDeepDesc"></div>
+
+            <div class="result-actions">
+                <button class="cyber-btn-small" id="deepExplainBtn">💡 Daha Detaylı Anlat</button>
+                <button class="cyber-btn-small" id="quizBtn">📝 Kendini Test Et</button>
+            </div>
+
+            <div class="window-box">
+                <div class="window-header">💻 Örnek Kod <span id="copyCodeBtn" style="cursor:pointer; color:#10FF70;">📋 Kopyala</span></div>
+                <pre><code id="codeBlock"></code></pre>
+            </div>
+
+            <div class="window-box output-border">
+                <div class="window-header">📟 Konsol Çıktısı</div>
+                <pre><code id="outputBlock"></code></pre>
+            </div>
+
+            <div class="quiz-box hidden" id="quizWindow">
+                <h4 id="quizQuestion">Soru?</h4>
+                <div class="quiz-options" id="quizOptions"></div>
+                <p id="quizResult" class="hidden"></p>
+            </div>
+        </div>
+    </div>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
