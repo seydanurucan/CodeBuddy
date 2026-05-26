@@ -1,6 +1,6 @@
 {
-  "name": "CodeBuddy AI Assistant",
-  "short_name": "CodeBuddy",
+  "name": "CodeBuddy AI v2",
+  "short_name": "CodeBuddy v2",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#000000",
