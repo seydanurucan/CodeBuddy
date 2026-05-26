@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #0b0f17;
+    background-color: #060913;
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -14,10 +14,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    padding: 15px;
+    padding: 20px 16px;
 }
 
-/* Arkadaki Canlı Akan Matrix Kodları */
+/* İlk fotoğraftaki gibi asil ve göz yormayan hafif akan matrix arka planı */
 #matrixCanvas {
     position: fixed;
     top: 0;
@@ -25,47 +25,49 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.22; /* Göz yormayan asil opaklık */
+    opacity: 0.18;
 }
 
-/* Giriş Kutusu (Milimetrik Hizalı ve Kibar) */
+/* Giriş Konteyneri (Mobil Ölçülerde) */
 .auth-container {
-    background: rgba(15, 23, 42, 0.85);
-    padding: 25px 20px;
-    border-radius: 12px;
-    border: 1px solid #39b54a; /* Bilgisayardaki o asil yeşil */
+    background: rgba(13, 20, 35, 0.85);
+    padding: 30px 20px;
+    border-radius: 16px;
+    border: 1px solid #2bb656;
     width: 100%;
-    max-width: 320px;
+    max-width: 325px;
     text-align: center;
-    margin-top: 20vh;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    margin-top: 15vh;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
 }
 
 .auth-container h2 {
-    color: #39b54a;
-    margin-bottom: 18px;
-    font-size: 20px;
+    color: #2bb656;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .input-group {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     text-align: left;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
-    color: #39b54a;
-    font-size: 12px;
+    margin-bottom: 6px;
+    color: #2bb656;
+    font-size: 13px;
     font-weight: bold;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px solid rgba(57, 181, 74, 0.4);
-    background: #0b0f17;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(43, 182, 86, 0.4);
+    background: #060913;
     color: white;
     font-size: 14px;
     outline: none;
@@ -73,28 +75,28 @@ body {
 
 .auth-btn {
     width: 100%;
-    padding: 10px;
-    background: #39b54a;
-    color: #0b0f17;
+    padding: 12px;
+    background: #2bb656;
+    color: #060913;
     border: none;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 8px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .switch-mode {
     color: #94a3b8;
-    font-size: 12px;
+    font-size: 13px;
     cursor: pointer;
     text-decoration: underline;
 }
 
-/* Ana Uygulama Kutusu (Tam Bilgisayar Fotoğrafındaki Ölçülerde) */
+/* Ana Uygulama Konteyneri (Tam İlk Fotoğraftaki Gibi) */
 .app-container {
     width: 100%;
-    max-width: 330px; /* Biraz daha küçülttüm, ekrana tam sığacak */
+    max-width: 340px; 
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -105,21 +107,23 @@ body {
     display: none !important;
 }
 
+/* Üst Başlık Alanı */
 .header-area {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    width: 100%;
 }
 
 .logo-box {
-    background: #39b54a;
-    color: #0b0f17;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 18px;
+    background: #2bb656;
+    color: #060913;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -128,102 +132,110 @@ body {
 }
 
 .title-box h1 {
-    font-size: 22px;
+    font-size: 24px;
     color: white;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .title-box p {
-    color: #39b54a;
-    font-size: 11px;
+    color: #2bb656;
+    font-size: 12px;
+    font-weight: 500;
 }
 
-/* İdeal Boyuttaki Arama Çubuğu */
+/* Tam O Fotoğraftaki Şık ve Mat Giriş Alanı */
 .search-box-wrapper {
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .search-input {
     width: 100%;
-    padding: 12px 16px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1.5px solid #39b54a;
-    border-radius: 20px;
+    padding: 15px 20px;
+    background: #111726;
+    border: 1.5px solid #2bb656;
+    border-radius: 25px;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
     outline: none;
 }
 
-/* Bilgisayar Ekranındaki O Şık Mat Yeşil Buton */
+/* Tam İlk Fotoğraftaki Düzgün ve Asil Yeşil Buton */
 .query-btn {
     width: 100%;
-    padding: 12px;
-    background: #39b54a;
-    color: #0b0f17;
+    padding: 15px;
+    background: #2bb656;
+    color: #060913;
     border: none;
-    border-radius: 20px;
-    font-size: 15px;
+    border-radius: 25px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(43, 182, 86, 0.2);
 }
 
 .bot-icon {
-    font-size: 35px;
-    margin-bottom: 8px;
-    color: #a8f3b4;
+    font-size: 38px;
+    margin-bottom: 10px;
+    color: #ffffff;
 }
 
 .info-text h3 {
-    font-size: 16px;
+    font-size: 18px;
     color: #ffffff;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    font-weight: 600;
 }
 
 .info-text p {
     color: #94a3b8;
-    margin-bottom: 20px;
-    font-size: 12px;
+    margin-bottom: 25px;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 0 5px;
 }
 
-/* Kapsül Hazır Kelimeler */
+/* Düzenli ve Hizalı Kapsül Kelimeler */
 .tags-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 6px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 25px;
     width: 100%;
 }
 
 .tag {
-    background: rgba(57, 181, 74, 0.08);
-    border: 1px solid rgba(57, 181, 74, 0.4);
-    padding: 5px 12px;
-    border-radius: 12px;
-    color: #39b54a;
-    font-size: 11px;
+    background: rgba(43, 182, 86, 0.06);
+    border: 1px solid rgba(43, 182, 86, 0.4);
+    padding: 6px 14px;
+    border-radius: 15px;
+    color: #2bb656;
+    font-size: 12px;
     cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
 }
 
 .tag:hover {
-    background: #39b54a;
-    color: #0b0f17;
+    background: #2bb656;
+    color: #060913;
 }
 
-/* Cevap Alanı */
+/* Şık ve Hizalı Cevap Alanı Kartı */
 .response-card {
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid #39b54a;
-    padding: 15px;
-    border-radius: 10px;
+    background: #111726;
+    border: 1.5px solid #2bb656;
+    padding: 18px;
+    border-radius: 14px;
     text-align: left;
-    line-height: 1.5;
-    font-size: 13px;
+    line-height: 1.6;
+    font-size: 14px;
     width: 100%;
-    max-height: 250px;
-    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
