@@ -5,8 +5,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Koyu Temalı ve Parlak Neon Arka Plan */
 body {
-    background-color: #0b0f19;
+    background-color: #050811;
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -16,7 +17,7 @@ body {
     position: relative;
 }
 
-/* Matrix Arka Plan Efekti */
+/* Fotoğraftaki o yeşil dikey çizgileri getiren kurşun geçirmez arka plan */
 body::before {
     content: "";
     position: fixed;
@@ -24,21 +25,21 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(11, 15, 25, 0.9), rgba(11, 15, 25, 0.9)), 
-                url('https://i.pingcc.org/matrix-rain-green.gif') repeat;
-    opacity: 0.15;
-    z-index: -1;
+    background: linear-gradient(180deg, rgba(5,8,17,0.85) 0%, rgba(5,8,17,0.95) 100%),
+                url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000') repeat;
     background-size: cover;
+    opacity: 0.18;
+    z-index: -1;
 }
 
 /* Giriş Konteyneri */
 .auth-container {
-    background: rgba(20, 27, 45, 0.75);
+    background: rgba(10, 20, 38, 0.85);
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(0, 255, 100, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 255, 100, 0.15);
+    box-shadow: 0 0 25px rgba(0, 255, 100, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid #00ff64;
     width: 100%;
     max-width: 400px;
     text-align: center;
@@ -48,7 +49,7 @@ body::before {
     color: #00ff64;
     margin-bottom: 25px;
     font-weight: 600;
-    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
 }
 
 .input-group {
@@ -59,45 +60,33 @@ body::before {
 .input-group label {
     display: block;
     margin-bottom: 8px;
-    color: #a0aec0;
+    color: #00ff64;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .input-group input {
     width: 100%;
     padding: 12px 16px;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(11, 15, 25, 0.6);
+    border: 1px solid #00ff64;
+    background: rgba(5, 8, 17, 0.8);
     color: white;
     font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.input-group input:focus {
-    border-color: #00ff64;
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 255, 100, 0.2);
 }
 
 .auth-btn {
     width: 100%;
     padding: 14px;
     background: #00ff64;
-    color: #0b0f19;
+    color: #050811;
     border: none;
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
     margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0, 255, 100, 0.3);
-}
-
-.auth-btn:hover {
-    background: #00cc52;
-    transform: translateY(-2px);
 }
 
 .switch-mode {
@@ -107,15 +96,11 @@ body::before {
     text-decoration: underline;
 }
 
-.switch-mode:hover {
-    color: #00ff64;
-}
-
-/* Ana Uygulama Alanı (Fotoğraftaki Efsane Tasarım) */
+/* Ana Uygulama Konteyneri */
 .app-container {
     width: 100%;
-    max-width: 800px;
-    padding: 40px 20px;
+    max-width: 750px;
+    padding: 30px 20px;
     text-align: center;
 }
 
@@ -128,88 +113,91 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
+/* Işıl Işıl Parlayan Logolar */
 .logo-box {
     background: #00ff64;
-    color: #0b0f19;
-    padding: 10px 15px;
+    color: #050811;
+    padding: 12px 18px;
     border-radius: 8px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
+    box-shadow: 0 0 20px rgba(0, 255, 100, 0.6);
 }
 
 .title-box h1 {
-    font-size: 28px;
+    font-size: 32px;
     color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .title-box p {
-    color: #a0aec0;
+    color: #00ff64;
     font-size: 14px;
+    text-shadow: 0 0 5px rgba(0, 255, 100, 0.3);
 }
 
+/* Tam O Fotoğraftaki Parlayan Arama Çubuğu */
 .search-box-wrapper {
-    position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .search-input {
     width: 100%;
-    padding: 18px 20px;
-    background: rgba(20, 27, 45, 0.8);
-    border: 2px solid rgba(0, 255, 100, 0.3);
-    border-radius: 12px;
+    padding: 18px 24px;
+    background: rgba(10, 20, 38, 0.9);
+    border: 2px solid #00ff64;
+    border-radius: 30px;
     color: white;
     font-size: 18px;
-    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.2);
+    text-align: center;
 }
 
-.search-input:focus {
-    border-color: #00ff64;
-    outline: none;
-    box-shadow: 0 0 20px rgba(0, 255, 100, 0.3);
-}
-
+/* O Fotoğraftaki Parlak Yeşil Buton */
 .query-btn {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     background: #00ff64;
-    color: #0b0f19;
+    color: #050811;
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     font-size: 18px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
-    transition: all 0.3s;
+    box-shadow: 0 0 25px rgba(0, 255, 100, 0.6);
     margin-bottom: 40px;
+    transition: all 0.2s ease;
 }
 
 .query-btn:hover {
-    background: #00cc52;
-    box-shadow: 0 0 25px rgba(0, 255, 100, 0.6);
+    transform: scale(1.02);
+    box-shadow: 0 0 35px rgba(0, 255, 100, 0.8);
 }
 
 .bot-icon {
-    font-size: 50px;
+    font-size: 55px;
     margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 100, 0.5));
 }
 
 .info-text h3 {
-    font-size: 20px;
+    font-size: 22px;
+    color: #ffffff;
     margin-bottom: 10px;
 }
 
 .info-text p {
     color: #a0aec0;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     font-size: 15px;
-    line-height: 1.6;
 }
 
+/* Yeşil Kapsül Butonlar */
 .tags-container {
     display: flex;
     flex-wrap: wrap;
@@ -219,29 +207,31 @@ body::before {
 }
 
 .tag {
-    background: rgba(0, 255, 100, 0.1);
-    border: 1px solid rgba(0, 255, 100, 0.3);
-    padding: 10px 20px;
+    background: rgba(0, 255, 100, 0.08);
+    border: 1px solid #00ff64;
+    padding: 10px 22px;
     border-radius: 20px;
     color: #00ff64;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s;
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.1);
+    transition: all 0.2s;
 }
 
 .tag:hover {
     background: #00ff64;
-    color: #0b0f19;
-    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
+    color: #050811;
+    box-shadow: 0 0 20px rgba(0, 255, 100, 0.5);
 }
 
+/* Cevap Alanı Kartı */
 .response-card {
-    background: rgba(20, 27, 45, 0.9);
-    border: 1px solid rgba(0, 255, 100, 0.2);
+    background: rgba(10, 20, 38, 0.95);
+    border: 2px solid #00ff64;
     padding: 25px;
-    border-radius: 12px;
+    border-radius: 16px;
     text-align: left;
-    line-height: 1.7;
+    line-height: 1.8;
     font-size: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 0 25px rgba(0, 255, 100, 0.3);
 }
