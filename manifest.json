@@ -1,0 +1,16 @@
+{
+  "name": "CodeBuddy AI Assistant",
+  "short_name": "CodeBuddy",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3242/3242257.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

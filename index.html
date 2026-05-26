@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeBuddy - AI Destekli Kod Asistanı</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+
+    <div id="authContainer" class="auth-container">
+        <div class="auth-card">
+            <h2 id="authTitle">CodeBuddy'ye Giriş Yap</h2>
+            <p class="auth-subtitle">Devam etmek için hesap bilgilerinizi giriniz.</p>
+            <form id="authForm">
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="authEmail" placeholder="E-posta Adresi" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="authPassword" placeholder="Şifre" required>
+                </div>
+                <button type="submit" id="authBtn" class="glow-button">Giriş Yap</button>
+            </form>
+            <div class="auth-toggle">
+                <span id="toggleText">Hesabınız yok mu?</span> <a href="#" id="toggleAuthLink">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="appContainer" class="app-container hidden">
+        <div class="header">
+            <div class="logo"><i class="fa-solid fa-code"></i> Code<span>Buddy</span></div>
+            <div class="header-right">
+                <button id="logoutBtn" class="logout-btn" title="Çıkış Yap"><i class="fa-solid fa-right-from-bracket"></i></button>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Aktif</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <div class="welcome-section" id="welcomeSection">
+                <i class="fa-solid fa-robot robot-icon"></i>
+                <h3>Ne öğrenmek istiyorsun?</h3>
+                <p>Bir kod terimi veya kavram yaz, sana en anlaşılır şekilde açıklayayım.</p>
+                <div class="tag-container">
+                    <span class="suggested-tag" onclick="fillInput('C# döngüler')">C# döngüler</span>
+                    <span class="suggested-tag" onclick="fillInput('HTML div')">HTML div</span>
+                    <span class="suggested-tag" onclick="fillInput('CSS flexbox')">CSS flexbox</span>
+                    <span class="suggested-tag" onclick="fillInput('JavaScript async')">JavaScript async</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Bir kod terimi yaz... (örn: C# döngüler)">
+            <button id="sendBtn" class="glow-button"><i class="fa-solid fa-bolt"></i> SORGULA</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log("SW Kayıt Hatası", err));
+        }
+    </script>
+</body>
+</html>
