@@ -13,7 +13,7 @@ body {
     min-height: 100vh;
 }
 
-/* --- MATRIX CANVAS (Giriş Değişmedi, Sadece Parlaklık image_17.png Seviyesine Çekildi) --- */
+/* --- MATRIX CANVAS (Akan Şekiller Aynı, Parlaklık Tamamen Kısıldı) --- */
 #matrixCanvas {
     position: fixed;
     top: 0;
@@ -21,10 +21,10 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    opacity: 0.15; /* Akan harflerin şekli aynı, sadece parlaklığı loşlaştırıldı */
+    opacity: 0.12; /* Cırtlaklığı tamamen yok etmek için loşlaştırdık, arkada asilce akıyor */
 }
 
-/* --- DEĞİŞTİRİLMEYEN GİRİŞ EKRANI KODLARI --- */
+/* --- DOKUNULMAYAN / ESKİ GİRİŞ EKRANI KODLARI --- */
 .auth-container {
     position: relative;
     z-index: 2;
@@ -114,200 +114,173 @@ body {
     transition: all 0.3s ease;
 }
 
-.input-group input:focus {
-    border-color: #10FF70;
-    box-shadow: 0 0 12px rgba(16, 255, 112, 0.4);
-}
-
-.matrix-btn {
-    width: 100%;
-    background: #10FF70;
-    color: #050605;
-    border: 1px solid #10FF70;
-    border-radius: 6px;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(16, 255, 112, 0.3);
-    margin-top: 10px;
-}
-
 
 /* ==========================================================================
-   --- 📱 TELEFON UYUMLU PREMIUM DASHBOARD (image_17.png TASARIMI) ---
+   --- 📱 TAMAMEN ESKİ DÜZENE VE GÖZ YORMAYAN TONLARA DÖNEN DASHBOARD ---
    ========================================================================== */
 
 .dashboard-container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 440px; /* Tam bir mobil ekran genişliği */
+    max-width: 430px; /* Tam istediğin telefon ekranı oturumu */
     margin: 0 auto;
-    padding: 24px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
 }
 
-/* Üst Logo ve Başlık Alanı */
+/* Üst Başlık Alanı - O sade ve pürüzsüz yazı stili */
 .dashboard-header {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 4px;
     padding: 10px 5px;
 }
 
 .dashboard-header h1 {
-    font-size: 26px;
-    color: #ffffff;
+    font-size: 24px;
+    color: #ffffff; /* Cırtlak yeşil değil, temiz beyaz */
     font-weight: bold;
     letter-spacing: 0.5px;
 }
 
 .dashboard-header p {
-    font-size: 13px;
-    color: rgba(16, 255, 112, 0.7);
-    margin-top: 2px;
+    font-size: 12px;
+    color: rgba(16, 255, 112, 0.5); /* Loş, gizemli yeşil */
 }
 
-/* Arama Kutusu ve Sorgula Butonu Blok Düzeni */
+/* Arama Çubuğu Kapsayıcısı */
 .search-area-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     width: 100%;
 }
 
-/* Koyu Yuvarlatılmış Arama Inputu */
+/* Koyu, içe doğru derinliği olan o eski mat input */
 .search-box input {
     width: 100%;
-    background: #121312;
+    background: #0d0e0d;
     border: 1px solid rgba(16, 255, 112, 0.15);
-    border-radius: 16px;
-    padding: 18px 20px;
+    border-radius: 14px;
+    padding: 16px 18px;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 14px;
     font-family: inherit;
     outline: none;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* image_17.png'deki O Dev Parlayan Fosforlu Yeşil SORGULA Butonu */
+/* SORGULA Butonu - O aşırı patlayan parlamayı aldım, mat ve asil bir yeşile çektim */
 .search-box button {
     width: 100%;
-    background: #10FF70;
+    background: #15d160; /* Cırtlak neon yerine daha tok, premium bir yeşil */
     color: #000000;
     border: none;
-    border-radius: 16px;
-    padding: 16px;
-    font-size: 15px;
-    font-weight: 900;
-    letter-spacing: 2px;
+    border-radius: 14px;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
     cursor: pointer;
     text-transform: uppercase;
     font-family: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 0 20px rgba(16, 255, 112, 0.6);
-    transition: transform 0.1s ease;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(21, 209, 96, 0.2); /* Göz alan kör edici ışık sönümlendi */
+    transition: background 0.2s ease;
 }
 
-.search-box button:active {
-    transform: scale(0.98);
+.search-box button:hover {
+    background: #10FF70;
 }
 
-/* Ortadaki Robotlu Giriş Metni Alanı */
+/* Ortadaki Robotlu Karşılama Alanı */
 #introSection {
     text-align: center;
-    padding: 30px 10px 10px 10px;
+    padding: 20px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 #introSection::before {
-    content: "🤖"; /* image_17.png'deki o tatlı robot emojisi */
-    font-size: 32px;
-    opacity: 0.8;
+    content: "🤖";
+    font-size: 28px;
+    opacity: 0.7;
 }
 
 #introSection h3 {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 0.5px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 #introSection p {
-    font-size: 13px;
-    color: rgba(16, 255, 112, 0.4);
+    font-size: 12px;
+    color: rgba(16, 255, 112, 0.35); /* İyice loşlaştırıldı ki göz yormasın */
     line-height: 1.5;
-    max-width: 280px;
+    max-width: 260px;
 }
 
-/* --- SATIR İÇİ ESNEK KAPSÜL BUTONLAR (FLEX FLOW) --- */
+/* --- ESKİ YUVARLAK KAPSÜL BUTONLAR (FLEX FLOW) --- */
 #termsGrid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    padding: 10px 5px;
+    gap: 8px;
+    padding: 5px;
     width: 100%;
 }
 
-/* image_17.png'deki Tam Yuvarlak İnce Çerçeveli Kapsüller */
+/* Tam istediğin o incecik çerçeveli, küçük harfli eski kapsüller */
 .term-chip {
-    background: rgba(16, 255, 112, 0.02);
-    border: 1px solid rgba(16, 255, 112, 0.3);
-    border-radius: 25px; /* Tam kapsül ovalliği */
-    padding: 8px 16px;
-    font-size: 13px;
-    color: #10FF70;
-    text-transform: lowercase; /* İstediğin o clean-girl küçük harf yapısı */
+    background: rgba(16, 255, 112, 0.01);
+    border: 1px solid rgba(16, 255, 112, 0.2); /* İncecik mat çizgi */
+    border-radius: 20px; /* Tam oval */
+    padding: 8px 14px;
+    font-size: 12px;
+    color: rgba(16, 255, 112, 0.8); /* Gözü yormayan soft yeşil yazı */
+    text-transform: lowercase; /* Tamamen küçük harf estetiği */
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .term-chip:hover {
-    background: rgba(16, 255, 112, 0.1);
-    border-color: #10FF70;
+    background: rgba(16, 255, 112, 0.08);
+    border-color: rgba(16, 255, 112, 0.6);
+    color: #10FF70;
 }
 
-/* Sonuç Kartı Düzeni (Açıldığında tasarımı bozmayacak premium alan) */
+/* Detay Kartı Düzeni */
 #termDetailCard {
-    background: rgba(5, 6, 5, 0.96);
-    border: 1px solid #10FF70;
-    border-radius: 16px;
-    padding: 20px;
-    margin-top: 10px;
-    box-shadow: 0 0 20px rgba(16, 255, 112, 0.15);
+    background: rgba(5, 6, 5, 0.98);
+    border: 1px solid rgba(16, 255, 112, 0.4);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
 #termDetailCard h2 {
-    font-size: 20px;
+    font-size: 18px;
     color: #ffffff;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 pre {
     background: #000000;
-    border-radius: 10px;
-    padding: 14px;
+    border-radius: 8px;
+    padding: 12px;
     font-size: 12px;
     overflow-x: auto;
-    color: #10FF70;
-    margin-top: 10px;
+    color: rgba(16, 255, 112, 0.9);
+    margin-top: 8px;
     border: 1px solid rgba(16, 255, 112, 0.1);
 }
 
-/* --- YARDIMCI SINIFLAR --- */
 .hidden {
     display: none !important;
 }
