@@ -15,28 +15,49 @@
     <div id="authScreen" class="auth-container">
         <div class="matrix-box">
             <div class="matrix-glow"></div>
-            <h2 class="matrix-title">MATRIX SİSTEM GİRİŞİ</h2>
-            <p class="matrix-subtitle">CodeBuddy Veri Motoruna Bağlanmak İçin Kimlik Doğrulayın</p>
             
-            <form id="loginForm">
+            <div class="auth-tabs">
+                <button id="tabLogin" class="auth-tab active">GİRİŞ YAP</button>
+                <button id="tabRegister" class="auth-tab">KAYIT OL</button>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <h2 class="matrix-title">MATRIX SİSTEM GİRİŞİ</h2>
                 <div class="input-group">
                     <label for="usernameInput">KULLANICI ADI</label>
-                    <input type="text" id="usernameInput" placeholder="admin" required autocomplete="off">
+                    <input type="text" id="usernameInput" placeholder="Kullanıcı adınızı girin" required autocomplete="off">
                 </div>
                 <div class="input-group">
                     <label for="passwordInput">SİSTEM ŞİFRESİ</label>
                     <input type="password" id="passwordInput" placeholder="••••••••" required>
                 </div>
-                <button type="submit" id="loginBtn" class="matrix-btn">
+                <button type="submit" class="matrix-btn">
                     <span>SİSTEME BAĞLAN</span>
                 </button>
             </form>
+
+            <form id="registerForm" class="auth-form hidden">
+                <h2 class="matrix-title">YENİ MATRİX KAYDI</h2>
+                <div class="input-group">
+                    <label for="regUsernameInput">KULLANICI ADI BELİRLE</label>
+                    <input type="text" id="regUsernameInput" placeholder="Örn: neo_dev" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="regPasswordInput">ŞİFRE BELİRLE</label>
+                    <input type="password" id="regPasswordInput" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="matrix-btn register-btn">
+                    <span>HESABI OLUŞTUR VE KAYDET</span>
+                </button>
+            </form>
+
         </div>
     </div>
 
     <div id="dashboardScreen" class="dashboard-container hidden">
         <header class="main-header">
             <h1 class="logo">CODEBUDDY <span>ASSISTANT</span></h1>
+            <div class="user-welcome"><span id="activeUserGlow"></span> <span id="welcomeText"></span></div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Terim ara veya yeni ekle... (Örn: C# DÖNGÜLER)">
                 <button id="searchBtn">SORGULA</button>
@@ -72,8 +93,6 @@
                         <button id="addFavBtn" class="action-btn">⭐ Favoriye Ekle</button>
                         <button id="deepLearnBtn" class="action-btn premium-btn">👁️ Derinlemesine İncele</button>
                     </div>
-
-                    <div id="termDeepDesc" class="deep-desc-box hidden"></div>
                 </div>
             </section>
         </main>
