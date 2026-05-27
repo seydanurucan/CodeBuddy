@@ -13,18 +13,18 @@ body {
     min-height: 100vh;
 }
 
-/* --- MATRIX CANVAS (Arka Plan - Yumuşatıldı ve Karartıldı) --- */
+/* --- MATRIX CANVAS (Giriş Değişmedi, Sadece Parlaklık image_17.png Seviyesine Çekildi) --- */
 #matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Kesinlikle tüm içeriğin arkasında kalacak */
-    opacity: 0.25; /* Çok parlaktı, burayı kısarak arkada loş ve asil bir yağmur bıraktık */
+    z-index: -1;
+    opacity: 0.15; /* Akan harflerin şekli aynı, sadece parlaklığı loşlaştırıldı */
 }
 
-/* --- ANA KAPSAYICI (Giriş Ekranı İçin) --- */
+/* --- DEĞİŞTİRİLMEYEN GİRİŞ EKRANI KODLARI --- */
 .auth-container {
     position: relative;
     z-index: 2;
@@ -36,7 +36,6 @@ body {
     padding: 20px;
 }
 
-/* --- AUTH EKRANI KUTUSU --- */
 .matrix-box {
     position: relative;
     background: rgba(5, 6, 5, 0.95);
@@ -49,7 +48,6 @@ body {
     text-align: center;
 }
 
-/* --- SEKME (TAB) BUTONLARI --- */
 .auth-tabs {
     display: flex;
     justify-content: center;
@@ -80,7 +78,6 @@ body {
     text-shadow: 0 0 8px #10FF70;
 }
 
-/* --- BAŞLIKLAR --- */
 .matrix-title {
     font-size: 20px;
     letter-spacing: 2px;
@@ -90,7 +87,6 @@ body {
     text-shadow: 0 0 10px rgba(16, 255, 112, 0.5);
 }
 
-/* --- INPUT GRUPLARI --- */
 .input-group {
     margin-bottom: 22px;
     text-align: left;
@@ -123,7 +119,6 @@ body {
     box-shadow: 0 0 12px rgba(16, 255, 112, 0.4);
 }
 
-/* --- MATRIX BUTON --- */
 .matrix-btn {
     width: 100%;
     background: #10FF70;
@@ -142,161 +137,174 @@ body {
     margin-top: 10px;
 }
 
-.matrix-btn:hover {
-    background: #050605;
-    color: #10FF70;
-    box-shadow: 0 0 22px rgba(16, 255, 112, 0.6);
-}
-
 
 /* ==========================================================================
-   --- 🖥️ DASHBOARD (PANEL) DÜZENLEME ALANI (BOK GİBİ OLAN YERİ DÜZELTTİK) ---
+   --- 📱 TELEFON UYUMLU PREMIUM DASHBOARD (image_17.png TASARIMI) ---
    ========================================================================== */
 
 .dashboard-container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 480px; /* İlk fotoğraftaki o muazzam mobil/dikey premium duruş */
+    max-width: 440px; /* Tam bir mobil ekran genişliği */
     margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Üst Karşılama ve Logo Alanı */
+/* Üst Logo ve Başlık Alanı */
 .dashboard-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: rgba(5, 6, 5, 0.9);
-    border: 1px solid rgba(16, 255, 112, 0.3);
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(16, 255, 112, 0.1);
+    gap: 15px;
+    padding: 10px 5px;
 }
 
-/* Arama Çubuğu Alanı */
-.search-box {
+.dashboard-header h1 {
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-header p {
+    font-size: 13px;
+    color: rgba(16, 255, 112, 0.7);
+    margin-top: 2px;
+}
+
+/* Arama Kutusu ve Sorgula Butonu Blok Düzeni */
+.search-area-wrapper {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 14px;
     width: 100%;
 }
 
+/* Koyu Yuvarlatılmış Arama Inputu */
 .search-box input {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(16, 255, 112, 0.4);
-    border-radius: 8px;
-    padding: 12px 15px;
-    color: #10FF70;
+    width: 100%;
+    background: #121312;
+    border: 1px solid rgba(16, 255, 112, 0.15);
+    border-radius: 16px;
+    padding: 18px 20px;
+    color: #ffffff;
+    font-size: 15px;
     font-family: inherit;
     outline: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
 }
 
+/* image_17.png'deki O Dev Parlayan Fosforlu Yeşil SORGULA Butonu */
 .search-box button {
+    width: 100%;
     background: #10FF70;
-    color: #050605;
+    color: #000000;
     border: none;
-    border-radius: 8px;
-    padding: 0 20px;
-    font-weight: bold;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 2px;
     cursor: pointer;
     text-transform: uppercase;
     font-family: inherit;
-    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 20px rgba(16, 255, 112, 0.6);
+    transition: transform 0.1s ease;
 }
 
-/* --- SİSTEMDEKİ KAVRAMLAR (TERİMLER GRİDİ) --- */
-#termsGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Yan yana ikili tertemiz dizilim */
-    gap: 12px;
-    margin-top: 10px;
+.search-box button:active {
+    transform: scale(0.98);
 }
 
-/* İlk fotoğraftaki o mükemmel kapsüllü butonlar */
-.term-chip {
-    background: rgba(16, 255, 112, 0.03);
-    border: 1px solid rgba(16, 255, 112, 0.25);
-    border-radius: 20px;
-    padding: 12px 10px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 14px;
-    color: #10FF70;
-    text-transform: lowercase; /* İlk fotoğraftaki gibi küçük harf estetiği */
-    transition: all 0.2s ease;
-}
-
-.term-chip:hover {
-    background: rgba(16, 255, 112, 0.15);
-    border-color: #10FF70;
-    box-shadow: 0 0 12px rgba(16, 255, 112, 0.4);
-}
-
-/* --- NE ÖĞRENMEK İSTİYORSUN (GİRİŞ METNİ KUTUSU) --- */
+/* Ortadaki Robotlu Giriş Metni Alanı */
 #introSection {
-    background: rgba(5, 6, 5, 0.95);
-    border: 1px solid rgba(16, 255, 112, 0.2);
-    border-radius: 12px;
-    padding: 30px 20px;
     text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    padding: 30px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+#introSection::before {
+    content: "🤖"; /* image_17.png'deki o tatlı robot emojisi */
+    font-size: 32px;
+    opacity: 0.8;
 }
 
 #introSection h3 {
-    margin-top: 10px;
     font-size: 18px;
-    letter-spacing: 1px;
-    color: rgba(16, 255, 112, 0.9);
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.5px;
 }
 
 #introSection p {
     font-size: 13px;
-    color: rgba(16, 255, 112, 0.6);
-    margin-top: 10px;
-    line-height: 1.6;
+    color: rgba(16, 255, 112, 0.4);
+    line-height: 1.5;
+    max-width: 280px;
 }
 
-/* --- TERİM DETAY KARTI (AŞAĞIYA KAYAN KODLAR BURADA TOPLANDI) --- */
-#termDetailCard {
-    background: rgba(5, 6, 5, 0.98); /* Kodlar arkadaki yağmura karışmasın diye opak siyah yaptık */
-    border: 2px solid #10FF70;
-    border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 0 25px rgba(16, 255, 112, 0.2);
+/* --- SATIR İÇİ ESNEK KAPSÜL BUTONLAR (FLEX FLOW) --- */
+#termsGrid {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+/* image_17.png'deki Tam Yuvarlak İnce Çerçeveli Kapsüller */
+.term-chip {
+    background: rgba(16, 255, 112, 0.02);
+    border: 1px solid rgba(16, 255, 112, 0.3);
+    border-radius: 25px; /* Tam kapsül ovalliği */
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #10FF70;
+    text-transform: lowercase; /* İstediğin o clean-girl küçük harf yapısı */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.term-chip:hover {
+    background: rgba(16, 255, 112, 0.1);
+    border-color: #10FF70;
+}
+
+/* Sonuç Kartı Düzeni (Açıldığında tasarımı bozmayacak premium alan) */
+#termDetailCard {
+    background: rgba(5, 6, 5, 0.96);
+    border: 1px solid #10FF70;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 0 20px rgba(16, 255, 112, 0.15);
 }
 
 #termDetailCard h2 {
-    font-size: 22px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(16, 255, 112, 0.3);
-    padding-bottom: 10px;
-    text-shadow: 0 0 8px #10FF70;
-}
-
-#termDetailCard p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(16, 255, 112, 0.85);
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 10px;
 }
 
 pre {
-    background: rgba(0, 0, 0, 0.85);
-    border-left: 3px solid #10FF70;
-    padding: 15px;
-    border-radius: 6px;
+    background: #000000;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 12px;
     overflow-x: auto;
-    font-size: 13px;
     color: #10FF70;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    margin-top: 10px;
+    border: 1px solid rgba(16, 255, 112, 0.1);
 }
 
 /* --- YARDIMCI SINIFLAR --- */
