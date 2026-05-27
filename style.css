@@ -1,439 +1,173 @@
-/* Temel Sıfırlamalar */
+/* --- GENEL SIFIRLAMA VE BAZ AYARLAR --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Share Tech Mono', monospace, sans-serif;
 }
 
 body {
     background-color: #050605;
-    color: #EBF5EE;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    color: #10FF70;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-.hidden {
-    display: none !important;
-}
-
-/* Tüm ekranı kaplayan, net ve havalı Matrix akışı */
+/* --- MATRIX CANVAS (Arka Planda Kalması İçin) --- */
 #matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Butonların ve kartların arkasında kalması için */
-    opacity: 0.45; /* Görseldeki gibi kodların net ve belirgin olması için artırıldı */
+    z-index: 1; /* En arkaya ittik */
 }
 
-/* --- GİRİŞ EKRANI --- */
-.auth-container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-.auth-card {
-    background: rgba(15, 18, 15, 0.75);
-    border: 1.5px solid rgba(16, 255, 112, 0.25);
-    border-radius: 24px;
-    padding: 45px 35px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(20px);
-}
-
-.brand-title {
-    color: #10FF70;
-    text-align: center;
-    font-size: 2.3rem;
-    letter-spacing: 5px;
-    text-shadow: 0 0 20px rgba(16, 255, 112, 0.35);
-    margin-bottom: 6px;
-}
-
-.brand-subtitle {
-    color: #606662;
-    text-align: center;
-    font-size: 0.8rem;
-    margin-bottom: 35px;
-    text-transform: uppercase;
-}
-
-.input-group {
-    margin-bottom: 22px;
-}
-
-.input-group label {
-    display: block;
-    color: #757C78;
-    font-size: 0.8rem;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-}
-
-.input-group input {
-    width: 100%;
-    background: rgba(20, 24, 21, 0.5);
-    border: 1.5px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
-    padding: 14px 18px;
-    color: #FFF;
-    outline: none;
-}
-
-.cyber-btn {
-    width: 100%;
-    background: rgba(16, 255, 112, 0.06);
-    border: 1.5px solid #10FF70;
-    color: #10FF70;
-    padding: 16px;
-    font-weight: 700;
-    border-radius: 16px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    transition: all 0.3s;
-}
-
-.cyber-btn:hover {
-    background: #10FF70;
-    color: #080908;
-    box-shadow: 0 0 25px rgba(16, 255, 112, 0.6);
-}
-
-.auth-footer {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #505652;
-}
-
-.cyber-link {
-    color: #10FF70;
-    text-decoration: none;
-    margin-left: 5px;
-}
-
-/* --- YENİ ANA PANEL TASARIMI (TAM EKRAN VE GÖRSELDEKİ GİBİ UYUMLU) --- */
+/* --- ANA KAPSAYICI --- */
 .app-container {
     position: relative;
-    z-index: 2;
-    width: 100vw; /* Tam ekran genişlik */
-    height: 100vh; /* Tam ekran yükseklik */
-    max-width: 480px; /* Mobil/Dikey kart yapısını korur ama ekrana tam oturur */
-    background: rgba(10, 12, 10, 0.65); /* Arkadaki matris tül gibi süzülecek */
-    border-left: 1.5px solid rgba(16, 255, 112, 0.2);
-    border-right: 1.5px solid rgba(16, 255, 112, 0.2);
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(25px);
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    overflow-y: auto;
-}
-
-/* Header Kısmı */
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    flex-shrink: 0;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.app-icon {
-    background: rgba(16, 255, 112, 0.1);
-    border: 1px solid rgba(16, 255, 112, 0.3);
-    color: #10FF70;
-    padding: 10px;
-    border-radius: 14px;
-    font-weight: bold;
-}
-
-.app-info h2 {
-    font-size: 1.3rem;
-    color: #fff;
-    font-weight: 700;
-}
-
-.app-info p {
-    font-size: 0.8rem;
-    color: #606662;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.status-dot {
-    width: 10px;
-    height: 10px;
-    background: #10FF70;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #10FF70;
-}
-
-/* Arama Çubuğu */
-.search-section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 25px;
-    flex-shrink: 0;
-}
-
-.search-wrapper {
-    background: rgba(20, 24, 21, 0.7);
-    border: 1.5px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.search-wrapper input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff;
+    z-index: 2; /* Tüm içerik Matrix yağmurunun üstünde görünecek */
     width: 100%;
-    font-size: 0.95rem;
-}
-
-/* Görseldeki O Muazzam "SORGULA" Butonu */
-.action-btn-main {
-    background: #10FF70;
-    color: #050605;
-    border: none;
-    border-radius: 18px;
-    padding: 16px;
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(16, 255, 112, 0.4);
-    transition: all 0.3s ease;
-}
-
-.action-btn-main:hover {
-    box-shadow: 0 6px 25px rgba(16, 255, 112, 0.6);
-    transform: translateY(-1px);
-}
-
-/* Tanıtım Alanı (Robotlu Kısım) */
-.intro-section {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.robot-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    opacity: 0.7;
-}
-
-.intro-section h3 {
-    font-size: 1.1rem;
-    color: #a0aaa4;
-    margin-bottom: 8px;
-}
-
-.intro-section p {
-    font-size: 0.85rem;
-    color: #555e58;
-    margin-bottom: 25px;
-    line-height: 1.4;
-}
-
-/* Görseldeki Yuvarlak Hatlı Küçük Butonlar (Chips) */
-.terms-cloud {
+    max-width: 480px; /* Mobil cihaz/dikey premium görünüm uyumu */
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
     justify-content: center;
 }
 
-.term-chip {
-    background: rgba(16, 255, 112, 0.03);
-    border: 1px solid rgba(16, 255, 112, 0.2);
-    color: #10FF70;
+/* --- AUTH (GİRİŞ/KAYIT) EKRANI KUTUSU --- */
+.auth-card {
+    background: rgba(5, 6, 5, 0.85);
+    border: 1px solid #10FF70;
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: 0 0 20px rgba(16, 255, 112, 0.2);
+    text-align: center;
+}
+
+/* --- SEKME (TAB) BUTONLARI DÜZENİ --- */
+.auth-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(16, 255, 112, 0.3);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: rgba(16, 255, 112, 0.6);
     padding: 8px 16px;
-    border-radius: 14px;
-    font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.2s;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    color: #10FF70;
+    border-color: #10FF70;
+    background: rgba(16, 255, 112, 0.1);
+    text-shadow: 0 0 8px #10FF70;
+}
+
+/* --- BAŞLIKLAR --- */
+h2.system-title {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(16, 255, 112, 0.6);
+}
+
+/* --- FORM ELEMANLARI VE INPUTLAR --- */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    color: rgba(16, 255, 112, 0.8);
+    text-transform: uppercase;
+}
+
+.matrix-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(16, 255, 112, 0.5);
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #10FF70;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.matrix-input:focus {
+    border-color: #10FF70;
+    box-shadow: 0 0 10px rgba(16, 255, 112, 0.4);
+}
+
+/* --- AKSİYON BUTONLARI (SORGULA & SİSTEME BAĞLAN) --- */
+.matrix-btn {
+    width: 100%;
+    background: #10FF70;
+    color: #050605;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(16, 255, 112, 0.4);
+    margin-top: 10px;
+}
+
+.matrix-btn:hover {
+    background: #050605;
+    color: #10FF70;
+    border: 1px solid #10FF70;
+    box-shadow: 0 0 20px rgba(16, 255, 112, 0.7);
+}
+
+/* --- TERİMLER GRID VE CHIP YAPISI --- */
+.terms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.term-chip {
+    background: rgba(16, 255, 112, 0.05);
+    border: 1px solid rgba(16, 255, 112, 0.3);
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
 }
 
 .term-chip:hover {
-    background: rgba(16, 255, 112, 0.1);
+    background: rgba(16, 255, 112, 0.15);
     border-color: #10FF70;
-    box-shadow: 0 0 10px rgba(16, 255, 112, 0.2);
+    box-shadow: 0 0 8px rgba(16, 255, 112, 0.3);
 }
 
-/* --- SONUÇ VE DETAYLAR --- */
-.result-section {
-    background: rgba(20, 24, 21, 0.4);
-    border: 1px solid rgba(16, 255, 112, 0.15);
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: 10px;
-}
-
-.result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.result-header h3 {
-    color: #10FF70;
-}
-
-.fav-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.term-desc {
-    color: #b5c2ba;
-    line-height: 1.5;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-
-/* İstediğin O Çılgın Uzun Anlatım Kutusu */
-.term-deep-desc {
-    background: rgba(16, 255, 112, 0.04);
-    padding: 16px;
-    border-left: 3px solid #10FF70;
-    border-radius: 4px 14px 14px 4px;
-    color: #d0ded5;
-    font-size: 0.88rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    white-space: pre-line;
-}
-
-.result-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.cyber-btn-small {
-    flex: 1;
-    background: transparent;
-    border: 1px solid #10FF70;
-    color: #10FF70;
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.cyber-btn-small:hover {
-    background: rgba(16, 255, 112, 0.1);
-}
-
-/* Kod ve Konsol Pencereleri */
-.window-box {
-    background: #040504;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    margin-bottom: 12px;
-    overflow: hidden;
-}
-
-.window-header {
-    background: rgba(255, 255, 255, 0.02);
-    padding: 8px 12px;
-    font-size: 0.75rem;
-    color: #757C78;
-    display: flex;
-    justify-content: space-between;
-}
-
-.output-border {
-    border-color: rgba(16, 255, 112, 0.15);
-}
-
-pre {
-    padding: 12px;
-    overflow-x: auto;
-}
-
-code {
-    font-family: 'Courier New', Courier, monospace;
-    color: #10FF70;
-    font-size: 0.85rem;
-}
-
-/* Quiz Alanı */
-.quiz-box {
-    background: rgba(16, 255, 112, 0.01);
-    border: 1px solid rgba(16, 255, 112, 0.15);
-    border-radius: 12px;
-    padding: 15px;
-    margin-top: 15px;
-}
-
-.quiz-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.quiz-opt-btn {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 0.85rem;
-}
-
-.quiz-opt-btn:hover {
-    border-color: #10FF70;
-}
-
-#quizResult {
-    margin-top: 10px;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
-/* Scrollbar Özelleştirme (Premium İnce Yapı) */
-::-webkit-scrollbar {
-    width: 4px;
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(16, 255, 112, 0.2);
-    border-radius: 10px;
+/* --- YARDIMCI SINIFLAR --- */
+.hidden {
+    display: none !important;
 }
