@@ -13,20 +13,21 @@ body {
     min-height: 100vh;
 }
 
-/* --- MATRIX CANVAS (Arka Planda Kalması İçin) --- */
+/* --- MATRIX CANVAS (Arka Plan - Yumuşatıldı ve Karartıldı) --- */
 #matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Canvas'ı tamamen en arkaya gömdük, böylece yazıların önüne geçemez */
+    z-index: -1; /* Kesinlikle tüm içeriğin arkasında kalacak */
+    opacity: 0.25; /* Çok parlaktı, burayı kısarak arkada loş ve asil bir yağmur bıraktık */
 }
 
-/* --- ANA KAPSAYICI (HTML'deki auth-container sınıfı) --- */
+/* --- ANA KAPSAYICI (Giriş Ekranı İçin) --- */
 .auth-container {
     position: relative;
-    z-index: 2; /* Form içeriğini tamamen öne çıkardık */
+    z-index: 2;
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -35,32 +36,20 @@ body {
     padding: 20px;
 }
 
-/* --- AUTH EKRANI KUTUSU (HTML'deki matrix-box sınıfı) --- */
+/* --- AUTH EKRANI KUTUSU --- */
 .matrix-box {
     position: relative;
-    background: rgba(5, 6, 5, 0.9); /* Arkası hafif transparan premium siyah */
+    background: rgba(5, 6, 5, 0.95);
     border: 2px solid #10FF70;
     border-radius: 12px;
     padding: 40px 30px;
     width: 100%;
-    max-width: 420px; /* Tam dikey premium kutu görünümü */
+    max-width: 420px;
     box-shadow: 0 0 25px rgba(16, 255, 112, 0.3);
     text-align: center;
 }
 
-/* --- SİBER PARILTI EFEKTİ --- */
-.matrix-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: inset 0 0 15px rgba(16, 255, 112, 0.2);
-    pointer-events: none;
-    border-radius: 10px;
-}
-
-/* --- SEKME (TAB) BUTONLARI DÜZENİ --- */
+/* --- SEKME (TAB) BUTONLARI --- */
 .auth-tabs {
     display: flex;
     justify-content: center;
@@ -70,7 +59,6 @@ body {
     padding-bottom: 15px;
 }
 
-/* HTML'deki auth-tab sınıfı */
 .auth-tab {
     background: transparent;
     border: 1px solid transparent;
@@ -92,7 +80,7 @@ body {
     text-shadow: 0 0 8px #10FF70;
 }
 
-/* --- BAŞLIKLAR (HTML'deki matrix-title sınıfı) --- */
+/* --- BAŞLIKLAR --- */
 .matrix-title {
     font-size: 20px;
     letter-spacing: 2px;
@@ -102,7 +90,7 @@ body {
     text-shadow: 0 0 10px rgba(16, 255, 112, 0.5);
 }
 
-/* --- FORM ELEMANLARI VE INPUTLAR (HTML'deki input-group sınıfı) --- */
+/* --- INPUT GRUPLARI --- */
 .input-group {
     margin-bottom: 22px;
     text-align: left;
@@ -117,7 +105,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Doğrudan input etiketlerini hedefledik */
 .input-group input {
     width: 100%;
     background: rgba(0, 0, 0, 0.8);
@@ -136,7 +123,7 @@ body {
     box-shadow: 0 0 12px rgba(16, 255, 112, 0.4);
 }
 
-/* --- AKSİYON BUTONLARI --- */
+/* --- MATRIX BUTON --- */
 .matrix-btn {
     width: 100%;
     background: #10FF70;
@@ -161,13 +148,155 @@ body {
     box-shadow: 0 0 22px rgba(16, 255, 112, 0.6);
 }
 
-/* --- DASHBOARD (GİRİŞ SONRASI) DÜZENİ --- */
+
+/* ==========================================================================
+   --- 🖥️ DASHBOARD (PANEL) DÜZENLEME ALANI (BOK GİBİ OLAN YERİ DÜZELTTİK) ---
+   ========================================================================== */
+
 .dashboard-container {
     position: relative;
     z-index: 2;
-    padding: 20px;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 480px; /* İlk fotoğraftaki o muazzam mobil/dikey premium duruş */
     margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Üst Karşılama ve Logo Alanı */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(5, 6, 5, 0.9);
+    border: 1px solid rgba(16, 255, 112, 0.3);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(16, 255, 112, 0.1);
+}
+
+/* Arama Çubuğu Alanı */
+.search-box {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.search-box input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(16, 255, 112, 0.4);
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #10FF70;
+    font-family: inherit;
+    outline: none;
+}
+
+.search-box button {
+    background: #10FF70;
+    color: #050605;
+    border: none;
+    border-radius: 8px;
+    padding: 0 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+/* --- SİSTEMDEKİ KAVRAMLAR (TERİMLER GRİDİ) --- */
+#termsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Yan yana ikili tertemiz dizilim */
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* İlk fotoğraftaki o mükemmel kapsüllü butonlar */
+.term-chip {
+    background: rgba(16, 255, 112, 0.03);
+    border: 1px solid rgba(16, 255, 112, 0.25);
+    border-radius: 20px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #10FF70;
+    text-transform: lowercase; /* İlk fotoğraftaki gibi küçük harf estetiği */
+    transition: all 0.2s ease;
+}
+
+.term-chip:hover {
+    background: rgba(16, 255, 112, 0.15);
+    border-color: #10FF70;
+    box-shadow: 0 0 12px rgba(16, 255, 112, 0.4);
+}
+
+/* --- NE ÖĞRENMEK İSTİYORSUN (GİRİŞ METNİ KUTUSU) --- */
+#introSection {
+    background: rgba(5, 6, 5, 0.95);
+    border: 1px solid rgba(16, 255, 112, 0.2);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+#introSection h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: rgba(16, 255, 112, 0.9);
+}
+
+#introSection p {
+    font-size: 13px;
+    color: rgba(16, 255, 112, 0.6);
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* --- TERİM DETAY KARTI (AŞAĞIYA KAYAN KODLAR BURADA TOPLANDI) --- */
+#termDetailCard {
+    background: rgba(5, 6, 5, 0.98); /* Kodlar arkadaki yağmura karışmasın diye opak siyah yaptık */
+    border: 2px solid #10FF70;
+    border-radius: 12px;
+    padding: 25px 20px;
+    box-shadow: 0 0 25px rgba(16, 255, 112, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#termDetailCard h2 {
+    font-size: 22px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(16, 255, 112, 0.3);
+    padding-bottom: 10px;
+    text-shadow: 0 0 8px #10FF70;
+}
+
+#termDetailCard p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(16, 255, 112, 0.85);
+}
+
+pre {
+    background: rgba(0, 0, 0, 0.85);
+    border-left: 3px solid #10FF70;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 13px;
+    color: #10FF70;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* --- YARDIMCI SINIFLAR --- */
