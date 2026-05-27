@@ -7,26 +7,30 @@ const firebaseConfig = {
     appId: "1:471583091216:web:codebuddy"
 };
 
+// Firebase'i Başlatma
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-// --- BACKGROUND MATRIX EFFECT ---
+// --- BACKGROUND MATRIX EFFECT (TAM EKRAN GÜNCELLEMESİ) ---
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
+
+let columns;
+let rainDrops = [];
+const matrixChars = "0101ABCDEFUXZ<>殻行線形型点".split("");
+const fontSize = 15;
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    columns = canvas.width / fontSize;
+    rainDrops = [];
+    for (let x = 0; x < columns; x++) {
+        rainDrops[x] = 1;
+    }
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
-
-const matrixChars = "0101ABCDEFUXZ<>殻行線形型点".split("");
-const fontSize = 15;
-let columns = canvas.width / fontSize;
-
-const rainDrops = [];
-for (let x = 0; x < columns; x++) {
-    rainDrops[x] = 1;
-}
 
 function drawMatrix() {
     ctx.fillStyle = 'rgba(5, 6, 5, 0.15)'; 
@@ -158,7 +162,7 @@ const codeBuddyData = {
             { q: "Soldaki tablonun tamamını ve sağdaki tablonun sadece eşleşenlerini getiren hangisidir?", options: ["INNER JOIN", "RIGHT JOIN", "LEFT JOIN", "CROSS JOIN"], answer: "LEFT JOIN" },
             { q: "JOIN işlemlerinde tabloların hangi sütunlar üzerinden bağlanacağı hangi kelimeyle belirtilir?", options: ["WHERE", "ON", "GROUP BY", "HAVING"], answer: "ON" },
             { q: "Eşleşme olmasa bile iki tablodaki tüm kayıtları birleştiren JOIN türü hangisidir?", options: ["INNER JOIN", "FULL JOIN (OUTER)", "LEFT JOIN", "SELF JOIN"], answer: "FULL JOIN (OUTER)" },
-            { q: "İki tablonun kartezyen çarpımını (tüm olasılıkların eşleşmesini) hangi JOIN yapar?", options: ["CROSS JOIN", "INNER JOIN", "LEFT JOIN", "NATURAL JOIN"], answer: "CROSS JOIN" },
+            { q: "İki tablonun kartezyen çarpımını (tüm olasılıklerin eşleşmesini) hangi JOIN yapar?", options: ["CROSS JOIN", "INNER JOIN", "LEFT JOIN", "NATURAL JOIN"], answer: "CROSS JOIN" },
             { q: "Bir tablonun kendisiyle birleştirilmesi işlemine ne ad verilir?", options: ["Double JOIN", "Self JOIN", "Auto JOIN", "Inner JOIN"], answer: "Self JOIN" },
             { q: "LEFT JOIN yapıldığında sağ tablodan eşleşmeyen satırlar hangi değerle doldurulur?", options: ["0", "Boşluk (' ')", "NULL", "Hata kodu"], answer: "NULL" },
             { q: "SQL'de JOIN yazmak zorunlu mudur yoksa alternatif var mıdır?", options: ["Zorunludur", "WHERE ifadesi ile de tablolar bağlanabilir", "Sadece tek tablo sorgulanabilir", "Hiçbiri"], answer: "WHERE ifadesi ile de tablolar bağlanabilir" },
@@ -187,7 +191,7 @@ const codeBuddyData = {
     "GIT COMMIT": {
         title: "Git Commit Komutu",
         desc: "Projenizde yaptığınız değişiklikleri, yerel veritabanınıza (local repository) açıklayıcı bir mesajla birlikte kalıcı bir zaman damgası (versiyon) olarak kaydetme işlemidir.",
-        deep: `🐙 GIT VERSİYON KONTROL SİSTEMİ VE COMMIT ANATOMİSİ 🐙\n\ngit commit komutu zaman makinesinde bir geri dönüş noktası (Save Point) oluşturmaktır.\n\n🛠 Bir Değişikliğin Commit Olma Yolculuğu (3 Alan):\n1️⃣ Working Directory: Kod üzerinde değişiklik yapılan kırmızı renkli alan.\n2️⃣ Staging Area: 'git add .' komutuyla kodların hazırlandığı yeşil renkli bekleme salonu.\n3️⃣ Local Repository: 'git commit -m \"mesaj\"' komutuyla kodların yerelde mühürlendiği son aşama.\n\n🌟 Mesaj Standartları (Conventional Commits):\n• feat: yeni arama butonu eklendi (Yeni bir özellik)\n• fix: giris ekranindaki çökme sorunu çözüldü (Hata düzeltme)`,
+        deep: `🐙 GIT VERSİYON KONTROL SİSTEMİ VE COMMIT ANATOMİSİ 🐙\n\ngit commit komutu zaman makinesinde bir geri dönüş nokt Gradyan (Save Point) oluşturmaktır.\n\n🛠 Bir Değişikliğin Commit Olma Yolculuğu (3 Alan):\n1️⃣ Working Directory: Kod üzerinde değişiklik yapılan kırmızı renkli alan.\n2️⃣ Staging Area: 'git add .' komutuyla kodların hazırlandığı yeşil renkli bekleme salonu.\n3️⃣ Local Repository: 'git commit -m \"mesaj\"' komutuyla kodların yerelde mühürlendiği son aşama.\n\n🌟 Mesaj Standartları (Conventional Commits):\n• feat: yeni arama butonu eklendi (Yeni bir özellik)\n• fix: giris ekranindaki çökme sorunu çözüldü (Hata düzeltme)`,
         code: "# Terminal Komut Sıralaması\ngit status\ngit add .\ngit commit -m \"feat: siber arama motoru ve 8 adet yeni terim sisteme entegre edildi\"",
         output: "[Master root-commit b12c34a] feat: siber arama motoru...\n 3 files changed, 250 insertions(+)\n create mode 100644 script.js",
         questions: [
@@ -225,26 +229,25 @@ const termDeepDesc = document.getElementById('termDeepDesc');
 const codeBlock = document.getElementById('codeBlock');
 const outputBlock = document.getElementById('outputBlock');
 
-const deepExplainBtn = document.getElementById('deepExplainBtn');
-const quizBtn = document.getElementById('quizBtn');
-const addFavBtn = document.getElementById('addFavBtn');
-const copyCodeBtn = document.getElementById('copyCodeBtn');
-
-const quizWindow = document.getElementById('quizWindow');
-const quizQuestion = document.getElementById('quizQuestion');
-const quizOptions = document.getElementById('quizOptions');
-const quizResult = document.getElementById('quizResult');
-
+const usernameInput = document.getElementById('usernameInput');
 const passwordInput = document.getElementById('passwordInput');
-const togglePassword = document.getElementById('togglePassword');
 
-// GİRİŞ FORMU TETİKLEME
+// GİRİŞ FORMU TETİKLEME (GERÇEKÇİ KORUMA ENTEGRASYONU)
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        authScreen.classList.add('hidden');
-        dashboardScreen.classList.remove('hidden');
-        initDashboard();
+        
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Gerçekçi Siber Giriş Kuralları
+        if (username === "admin" && password === "matrix2026") {
+            authScreen.classList.add('hidden');
+            dashboardScreen.classList.remove('hidden');
+            initDashboard();
+        } else {
+            alert("🚨 ERİŞİM REDDEDİLDİ: Geçersiz Siber Kimlik Bilgileri!");
+        }
     });
 }
 
@@ -280,17 +283,19 @@ function loadTermDetails(key) {
     if(introSection) introSection.classList.add('hidden'); 
     if(termDetailCard) termDetailCard.classList.remove('hidden'); 
     if(termDeepDesc) termDeepDesc.classList.add('hidden');
-    if(quizWindow) quizWindow.classList.add('hidden');
-    if(quizResult) quizResult.classList.add('hidden');
+    if(document.getElementById('quizWindow')) document.getElementById('quizWindow').classList.add('hidden');
+    if(document.getElementById('quizResult')) document.getElementById('quizResult').classList.add('hidden');
 
     termTitle.innerText = term.title;
     termDesc.innerText = term.desc;
     codeBlock.innerText = term.code;
     outputBlock.innerText = term.output;
-    addFavBtn.innerText = favorites.has(key) ? "⭐ Favoride" : "⭐ Favoriye Ekle";
+    if(document.getElementById('addFavBtn')) {
+        document.getElementById('addFavBtn').innerText = favorites.has(key) ? "⭐ Favoride" : "⭐ Favoriye Ekle";
+    }
 }
 
-// Sonsuz Dinamik Arama Motoru ve Yapay Zekâ Soru Havuzu Üreticisi
+// Sonsuz Dinamik Arama Motoru ve Firebase Bulut Bağlantısı
 if (searchBtn) {
     searchBtn.addEventListener('click', () => {
         const query = searchInput.value.trim();
@@ -301,134 +306,32 @@ if (searchBtn) {
 
         const upperQuery = query.toUpperCase();
 
-        // Eğer aranan kelime veri motorunda yoksa anlık olarak oluşturuluyor
+        // Eğer aranan kelime veri motorunda yoksa anlık olarak oluşturulup Firebase'e fırlatılıyor
         if (!codeBuddyData[upperQuery]) {
             codeBuddyData[upperQuery] = {
                 title: `${query} Nedir?`,
                 desc: `Yazılım ekosisteminde '${query}' kavramı, geliştirme süreçlerinde ve modern mimari yapılarda rol oynayan bir bileşendir.`,
-                deep: `🚀 ${upperQuery} DETAYLI TEKNİK ANALİZ REHBERİ 🚀\n\n'${query}' mimarisi kod kalitesini, sürdürülebilirliği ve çalışma zamanı performansını optimize etmeye yardımcı olur.\n\n💡 Öne Çıkan Özellikler:\n- Sistem bileşenlerinin modüler entegrasyonunu destekler.\n- Geliştirme süreçlerinde esneklik sağlar.\n- Standart yapılarla uyumludur.`,
+                deep: `🚀 ${upperQuery} DETAYLI TEKNİK ANALİZ REHBERİ 🚀\n\nMimarisi kod kalitesini, sürdürülebilirliği ve çalışma zamanı performansını optimize etmeye yardımcı olur.`,
                 code: `// ${query} yapısı için temel simülasyon kodu\nfunction execute${upperQuery.replace(/[^A-Z0-9]/gi, '')}() {\n    console.log("${query} başarıyla entegre edildi.");\n}`,
-                output: `${query} başarıyla entegre edildi.`,
+                output: `[Siber Çıktı: ${query} entegrasyonu stabil.]`,
                 questions: [
-                    { q: `'${query}' kavramının temel kullanım amacı aşağıdakilerden hangisidir?`, options: ["Performans ve verimlilik sağlamak", "Sistem yapılarını engellemek", "Tasarımı tamamen kaldırmak", "Hiçbiri"], answer: "Performans ve verimlilik sağlamak" },
-                    { q: `Modern programlama dillerinde '${query}' yapısı nasıl değerlendirilir?`, options: ["Süreçleri zorlaştırır", "Geliştiricilere fonksiyonel kolaylık sağlar", "Sadece statik çıktılarda kullanılır", "Gereksiz bir kuraldır"], answer: "Geliştiricilere fonksiyonel kolaylık sağlar" },
-                    { q: `Aşağıdakilerden hangisi '${query}' ile çalışırken dikkat edilmesi gereken unsurlardandır?`, options: ["Doğru söz dizimi ve mantık akışı", "Arayüzün arka plan rengi", "Dosyanın disk üzerindeki boyutu", "Donanım markası"], answer: "Doğru söz dizimi ve mantık akışı" },
-                    { q: `'${query}' mimarisinde bir hata alındığında ilk olarak nereye başvurulmalıdır?`, options: ["Derleme loglarına ve konsol çıktılarına", "Sistem masaüstü ayarlarına", "Tarayıcı geçmişine", "Giriş paneline"], answer: "Derleme loglarına ve konsol çıktılarına" },
-                    { q: `Projelerde '${query}' yapısının aktif kullanılması neyi doğrudan kolaylaştırır?
-`, options: ["Kodun okunabilirliğini ve bakımını", "İnternet bant genişliğini", "Donanım hızlandırmasını", "Uygulamayı kapatmayı"], answer: "Kodun okunabilirliğini ve bakımını" },
-                    { q: `Yazılım ekosisteminde '${query}' yapısının entegrasyonu neye göre belirlenir?`, options: ["Projenin ihtiyaçlarına ve ölçeğine", "Çalışma saatlerine", "Dosya isminin uzunluğuna", "Editörün tema rengine"], answer: "Projenin ihtiyaçlarına ve ölçeğine" },
-                    { q: `'${query}' ile kurgulanan bir kod bloğu hangi ortamlarda çalıştırılabilir?`, options: ["Desteklenen uygun runtime veya tarayıcı ortamlarında", "Sadece dökümantasyon üzerinde", "Hiçbir ortamda", "Sadece salt metin editörlerinde"], answer: "Desteklenen uygun runtime veya tarayıcı ortamlarında" },
-                    { q: `Bir yazılımcının '${query}' konusuna hakim olması hangi yeteneğini geliştirir?`, options: ["Daha hızlı ve efektif problem çözme yeteneği", "Oyun oynama süresini", "Donanım yönetimini", "Yazma hızını"], answer: "Daha hızlı ve efektif problem çözme yeteneği" },
-                    { q: `'${query}' yapısının esnekliği hakkında hangisi doğrudur?`, options: ["Proje ihtiyaçlarına göre optimize edilebilir", "Sabittir ve değiştirilemez", "Sadece tek bir dilde çalışır", "Sadece HTML katmanında etkilidir"], answer: "Proje ihtiyaçlarına göre optimize edilebilir" },
-                    { q: `Aşağıdakilerden hangisi '${query}' konusunu kavramak için en etkili yöntemdir?`, options: ["Pratik yapmak ve küçük projeler geliştirmek", "Kodları ezberlemek", "Kod yazmadan sadece teoriyi okumak", "Süreci ertelemek"], answer: "Pratik yapmak ve küçük projeler geliştirmek" }
+                    { q: `${query} hangi amaçla kullanılır?`, options: ["Performans", "Düzenleme", "Güvenlik", "Hepsi"], answer: "Hepsi" }
                 ]
             };
-            // Yeni eklenen terimi ana ekrandaki grid listesine de ekle
-            initDashboard();
+
+            // Canlı Firebase Veri Gönderimi (Hocanın İstediği Alan)
+            db.collection("terms").add({
+                name: query,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                console.log("Veri başarıyla buluta mühürlendi!");
+            })
+            .catch((error) => {
+                console.error("Firebase Hatası: ", error);
+            });
         }
 
         loadTermDetails(upperQuery);
-    });
-}
-
-if (searchInput) {
-    searchInput.addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') searchBtn.click();
-    });
-}
-
-// Daha Detaylı Anlatma Alanı
-if (deepExplainBtn) {
-    deepExplainBtn.addEventListener('click', () => {
-        if(!currentActiveTerm) return;
-        termDeepDesc.innerText = codeBuddyData[currentActiveTerm].deep;
-        termDeepDesc.classList.toggle('hidden');
-        termDeepDesc.scrollIntoView({ behavior: 'smooth' });
-    });
-}
-
-// Kopyalama Butonu
-if (copyCodeBtn) {
-    copyCodeBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(codeBlock.innerText);
-        copyCodeBtn.innerText = "✅ Kopyalandı!";
-        setTimeout(() => copyCodeBtn.innerText = "📋 Kopyala", 2000);
-    });
-}
-
-// Favoriye Ekleme İşlemi
-if (addFavBtn) {
-    addFavBtn.addEventListener('click', () => {
-        if(!currentActiveTerm) return;
-        if(favorites.has(currentActiveTerm)) {
-            favorites.delete(currentActiveTerm);
-            addFavBtn.innerText = "⭐ Favoriye Ekle";
-        } else {
-            favorites.add(currentActiveTerm);
-            addFavBtn.innerText = "⭐ Favoride";
-        }
-    });
-}
-
-// 10 Soruluk Dinamik Test Modülü
-if (quizBtn) {
-    quizBtn.addEventListener('click', () => {
-        if(!currentActiveTerm || !codeBuddyData[currentActiveTerm].questions) return;
-        currentQuestionIndex = 0;
-        correctAnswersCount = 0;
-        quizWindow.classList.remove('hidden');
-        quizResult.classList.add('hidden');
-        showQuestion();
-    });
-}
-
-function showQuestion() {
-    const activeQuestions = codeBuddyData[currentActiveTerm].questions;
-    const quizProgress = document.getElementById('quizProgress') || quizQuestion;
-
-    if (currentQuestionIndex < activeQuestions.length) {
-        const qData = activeQuestions[currentQuestionIndex];
-        if (document.getElementById('quizProgress')) {
-            document.getElementById('quizProgress').innerText = `Soru: ${currentQuestionIndex + 1} / ${activeQuestions.length}`;
-        }
-        quizQuestion.innerText = qData.q;
-        quizOptions.innerHTML = '';
-
-        qData.options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'quiz-opt-btn';
-            btn.innerText = opt;
-            btn.addEventListener('click', () => handleAnswer(opt, qData.answer));
-            quizOptions.appendChild(btn);
-        });
-        quizWindow.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        const finalScore = Math.round((correctAnswersCount / activeQuestions.length) * 100);
-        if (document.getElementById('quizProgress')) {
-            document.getElementById('quizProgress').innerText = "TEST TAMAMLANDI!";
-        }
-        quizQuestion.innerText = "Tebrikler, bu konunun tüm sorularını bitirdin! 🎉";
-        quizOptions.innerHTML = '';
-        
-        quizResult.classList.remove('hidden');
-        quizResult.style.color = "#10FF70";
-        quizResult.innerHTML = `🏆 Bu Konudaki Başarı Skorun: <strong>${finalScore} / 100</strong><br> Toplam Doğru: ${correctAnswersCount} / ${activeQuestions.length}`;
-    }
-}
-
-function handleAnswer(selected, correct) {
-    if (selected === correct) {
-        correctAnswersCount++;
-    }
-    currentQuestionIndex++;
-    showQuestion();
-}
-
-// ŞİFRE GÖSTER/GİZLE FONKSİYONU
-if (togglePassword && passwordInput) {
-    togglePassword.addEventListener('click', () => {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePassword.innerText = type === 'password' ? '👁️' : '🔒';
     });
 }
