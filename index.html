@@ -3,104 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeBuddy - Cyber Assistant</title>
+    <title>CodeBuddy Assistant | Matrix Premium</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
 
     <canvas id="matrixCanvas"></canvas>
 
-    <div class="auth-container" id="authScreen">
-        <div class="auth-card">
-            <h1 class="brand-title">CODEBUDDY</h1>
-            <p class="brand-subtitle">Siber Yazılım Asistanı</p>
+    <div id="authScreen" class="auth-container">
+        <div class="matrix-box">
+            <div class="matrix-glow"></div>
+            <h2 class="matrix-title">MATRIX SİSTEM GİRİŞİ</h2>
+            <p class="matrix-subtitle">CodeBuddy Veri Motoruna Bağlanmak İçin Kimlik Doğrulayın</p>
             
             <form id="loginForm">
                 <div class="input-group">
-                    <label for="username">Kullanıcı Adı</label>
-                    <input type="text" id="username" placeholder="Siber kimliğinizi giriniz..." required>
+                    <label for="usernameInput">KULLANICI ADI</label>
+                    <input type="text" id="usernameInput" placeholder="admin" required autocomplete="off">
                 </div>
-                
                 <div class="input-group">
-                    <label for="password">Şifre</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
+                    <label for="passwordInput">SİSTEM ŞİFRESİ</label>
+                    <input type="password" id="passwordInput" placeholder="••••••••" required>
                 </div>
-                
-                <button type="submit" class="cyber-btn">Sisteme Giriş Yap</button>
+                <button type="submit" id="loginBtn" class="matrix-btn">
+                    <span>SİSTEME BAĞLAN</span>
+                </button>
             </form>
-            
-            <div class="auth-footer">
-                <p>Hesabın yok mu? <a href="#" class="cyber-link">Kayıt Ol</a></p>
-            </div>
         </div>
     </div>
 
-    <div class="app-container hidden" id="dashboardScreen">
-        <header class="app-header">
-            <div class="header-left">
-                <div class="app-icon">&lt;/&gt;</div>
-                <div class="app-info">
-                    <h2>CodeBuddy</h2>
-                    <p>AI destekli kod asistanı</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <span class="status-icon">🔖</span>
-                <span class="status-dot"></span>
+    <div id="dashboardScreen" class="dashboard-container hidden">
+        <header class="main-header">
+            <h1 class="logo">CODEBUDDY <span>ASSISTANT</span></h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Terim ara veya yeni ekle... (Örn: C# DÖNGÜLER)">
+                <button id="searchBtn">SORGULA</button>
             </div>
         </header>
 
-        <div class="search-section">
-            <div class="search-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Bir kod terimi yaz... (örn: C#, API, OOP)">
-            </div>
-            <button class="action-btn-main" id="searchBtn">⚡ SORGULA</button>
-        </div>
+        <main class="content-layout">
+            <aside class="sidebar">
+                <h3>SİSTEMDEKİ KAVRAMLAR</h3>
+                <div id="termsGrid" class="chips-container"></div>
+            </aside>
 
-        <div class="intro-section" id="introSection">
-            <div class="robot-icon">🤖</div>
-            <h3>Ne öğrenmek istiyorsun?</h3>
-            <p>Bir kod terimi veya kavram yaz, sana arkadaşın gibi açıklayayım.</p>
-            
-            <div class="terms-cloud" id="termsGrid">
+            <section class="main-content">
+                <div id="introSection" class="matrix-card placeholder-card">
+                    <p>🤖 Veri motoru aktif. İncelemek istediğiniz yazılım kavramını soldan seçin veya yukarıdan sorgulayın.</p>
                 </div>
-        </div>
 
-        <div class="result-section hidden" id="termDetailCard">
-            <div class="result-header">
-                <h3 id="termTitle">Terim Başlığı</h3>
-                <button class="fav-btn" id="addFavBtn">⭐ Favori</button>
-            </div>
-            
-            <p class="term-desc" id="termDesc">Kısa Tanım...</p>
-            
-            <div class="term-deep-desc hidden" id="termDeepDesc"></div>
+                <div id="termDetailCard" class="matrix-card hidden">
+                    <h2 id="termTitle">Terim Başlığı</h2>
+                    <p id="termDesc" class="short-desc">Kısa açıklama...</p>
+                    
+                    <div class="code-wrapper">
+                        <div class="code-header">KOD SİMÜLASYONU</div>
+                        <pre><code id="codeBlock"></code></pre>
+                    </div>
 
-            <div class="result-actions">
-                <button class="cyber-btn-small" id="deepExplainBtn">💡 Daha Detaylı Anlat</button>
-                <button class="cyber-btn-small" id="quizBtn">📝 Kendini Test Et</button>
-            </div>
+                    <div class="output-wrapper">
+                        <div class="output-header">SİSTEM ÇIKTISI</div>
+                        <pre><code id="outputBlock"></code></pre>
+                    </div>
 
-            <div class="window-box">
-                <div class="window-header">💻 Örnek Kod <span id="copyCodeBtn" style="cursor:pointer; color:#10FF70;">📋 Kopyala</span></div>
-                <pre><code id="codeBlock"></code></pre>
-            </div>
+                    <div class="card-actions">
+                        <button id="addFavBtn" class="action-btn">⭐ Favoriye Ekle</button>
+                        <button id="deepLearnBtn" class="action-btn premium-btn">👁️ Derinlemesine İncele</button>
+                    </div>
 
-            <div class="window-box output-border">
-                <div class="window-header">📟 Konsol Çıktısı</div>
-                <pre><code id="outputBlock"></code></pre>
-            </div>
-
-            <div class="quiz-box hidden" id="quizWindow">
-                <h4 id="quizQuestion">Soru?</h4>
-                <div class="quiz-options" id="quizOptions"></div>
-                <p id="quizResult" class="hidden"></p>
-            </div>
-        </div>
+                    <div id="termDeepDesc" class="deep-desc-box hidden"></div>
+                </div>
+            </section>
+        </main>
     </div>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>
