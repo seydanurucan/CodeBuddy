@@ -33,9 +33,8 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 function drawMatrix() {
-    ctx.fillStyle = 'rgba(5, 6, 5, 0.15)'; 
+    ctx.fillStyle = 'rgba(5, 6, 5, 0.08)';  
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     ctx.fillStyle = '#10FF70'; 
     ctx.font = fontSize + 'px monospace';
 
